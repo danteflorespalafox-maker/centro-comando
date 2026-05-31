@@ -65,11 +65,34 @@
   #activa-banner { padding: 20px 32px; border-bottom: 1px solid var(--border); }
   .activa-empty { color: var(--muted); font-size: 13px; font-style: italic; }
   .activa-card { display: flex; align-items: flex-start; gap: 16px; background: var(--bg2); border: 1px solid rgba(200,169,126,0.25); border-radius: var(--r); padding: 16px 20px; }
-  .activa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 8px rgba(200,169,126,0.5); }
+  .activa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 8px rgba(200,169,126,0.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 6px rgba(200,169,126,0.4); } 50% { box-shadow: 0 0 14px rgba(200,169,126,0.8); } }
   .activa-info { flex: 1; }
   .activa-nombre { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); line-height: 1.3; }
   .activa-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
-  .activa-actions { display: flex; gap: 4px; }
+  .activa-meta { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .activa-progress-wrap { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .activa-progress-bar { height: 100%; background: var(--accent2); border-radius: 2px; transition: width 0.4s ease; }
+  .activa-progress-txt { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .activa-dias { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .activa-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+  /* ── GATE MODAL ─── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px; padding: 28px; width: 420px; max-width: 92vw; }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .modal-idea-nombre { color: var(--accent); font-weight: 600; }
+  .modal-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .modal-opt { display: flex; align-items: center; gap: 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: border-color 0.15s; }
+  .modal-opt:hover { border-color: var(--border2); }
+  .modal-opt.selected { border-color: var(--accent); }
+  .modal-opt-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
+  .modal-opt-text { flex: 1; }
+  .modal-opt-label { font-size: 14px; font-weight: 500; }
+  .modal-opt-desc { font-size: 12px; color: var(--muted); }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
 
   /* ── CAPTURA ─── */
   #capture-section { padding: 24px 32px; border-bottom: 1px solid var(--border); }
@@ -223,6 +246,34 @@
   </div>
 </div>
 
+<!-- Gate modal -->
+<div class="modal-overlay" id="gate-overlay">
+  <div class="modal">
+    <div class="modal-title">Tenés una idea activa</div>
+    <div class="modal-sub">Antes de cambiar, ¿qué hacés con <span class="modal-idea-nombre" id="gate-nombre"></span>?</div>
+    <div class="modal-options">
+      <div class="modal-opt" id="gate-opt-completar" onclick="selectGateOpt('completar')">
+        <div class="modal-opt-icon">✓</div>
+        <div class="modal-opt-text">
+          <div class="modal-opt-label">La completé</div>
+          <div class="modal-opt-desc">Se archiva como terminada</div>
+        </div>
+      </div>
+      <div class="modal-opt" id="gate-opt-incubar" onclick="selectGateOpt('incubar')">
+        <div class="modal-opt-icon">⏸</div>
+        <div class="modal-opt-text">
+          <div class="modal-opt-label">La pauso por ahora</div>
+          <div class="modal-opt-desc">Vuelve a incubación, la retomás después</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button onclick="closeGate()">Cancelar</button>
+      <button class="primary" onclick="confirmGate()">Continuar</button>
+    </div>
+  </div>
+</div>
+
 <!-- Drawer ficha -->
 <div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
@@ -341,12 +392,25 @@ function renderActiva() {
     el.innerHTML = '<div class="activa-empty">Sin idea activa — activá una desde la lista.</div>';
     return;
   }
+  const metas = activa.metas || [];
+  const metasDone = metas.filter(m => m.done).length;
+  const pct = metas.length ? Math.round((metasDone / metas.length) * 100) : 0;
+  const dias = activa.activadoEn ? Math.floor((Date.now() - activa.activadoEn) / 86400000) : 0;
+  const diasTxt = dias === 0 ? 'hoy' : dias === 1 ? '1 día en foco' : `${dias} días en foco`;
+
   el.innerHTML = `
     <div class="activa-card">
       <div class="activa-dot"></div>
       <div class="activa-info">
         <div class="activa-nombre">${escHtml(activa.nombre)}</div>
         ${activa.descripcion ? `<div class="activa-desc">${escHtml(activa.descripcion)}</div>` : ''}
+        <div class="activa-meta">
+          <div class="activa-progress-wrap">
+            <div class="activa-progress-bar" style="width:${pct}%"></div>
+          </div>
+          <span class="activa-progress-txt">${metasDone}/${metas.length} metas</span>
+          <span class="activa-dias">${diasTxt}</span>
+        </div>
       </div>
       <div class="activa-actions">
         <button class="icon-btn" onclick="openDrawer(${activa.id})">Ver ficha</button>
@@ -394,14 +458,53 @@ async function captureIdea() {
   renderAll();
 }
 
+let gateTargetId = null;
+let gateOpcion = null;
+
 async function activar(id) {
   const yaActiva = ideas.find(i => i.estado === 'activa');
   if (yaActiva) {
-    await api('PATCH', `/api/ideas/${yaActiva.id}`, { estado: 'incubando' });
-    ideas.find(i => i.id === yaActiva.id).estado = 'incubando';
+    gateTargetId = id;
+    gateOpcion = null;
+    $('gate-nombre').textContent = yaActiva.nombre;
+    $('gate-opt-completar').classList.remove('selected');
+    $('gate-opt-incubar').classList.remove('selected');
+    $('gate-overlay').classList.add('open');
+    return;
   }
-  await api('PATCH', `/api/ideas/${id}`, { estado: 'activa' });
-  ideas.find(i => i.id === id).estado = 'activa';
+  await _activar(id);
+}
+
+function selectGateOpt(opcion) {
+  gateOpcion = opcion;
+  $('gate-opt-completar').classList.toggle('selected', opcion === 'completar');
+  $('gate-opt-incubar').classList.toggle('selected', opcion === 'incubar');
+}
+
+async function confirmGate() {
+  if (!gateOpcion || !gateTargetId) return;
+  const yaActiva = ideas.find(i => i.estado === 'activa');
+  if (yaActiva) {
+    const nuevoEstado = gateOpcion === 'completar' ? 'archivada' : 'incubando';
+    await api('PATCH', `/api/ideas/${yaActiva.id}`, { estado: nuevoEstado });
+    ideas.find(i => i.id === yaActiva.id).estado = nuevoEstado;
+  }
+  await _activar(gateTargetId);
+  closeGate();
+}
+
+function closeGate() {
+  $('gate-overlay').classList.remove('open');
+  gateTargetId = null;
+  gateOpcion = null;
+}
+
+async function _activar(id) {
+  const activadoEn = Date.now();
+  await api('PATCH', `/api/ideas/${id}`, { estado: 'activa', activadoEn });
+  const idea = ideas.find(i => i.id === id);
+  idea.estado = 'activa';
+  idea.activadoEn = activadoEn;
   renderAll();
 }
 
