@@ -54,6 +54,11 @@ app.put('/api/economia/colchon', (req, res) => {
   res.json({ ok: true });
 });
 
+app.put('/api/economia/meta-libertad', (req, res) => {
+  db.economia.setMetaLibertad(req.body.meta);
+  res.json({ ok: true });
+});
+
 app.post('/api/economia/gastos', (req, res) => res.json(db.economia.addGasto(req.body)));
 app.delete('/api/economia/gastos/:id', (req, res) => { db.economia.deleteGasto(req.params.id); res.json({ ok: true }); });
 
