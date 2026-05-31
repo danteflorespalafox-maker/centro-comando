@@ -23,266 +23,127 @@
     --r: 10px;
   }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* ENV BADGE */
-  .env-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 20px;
-    border: 1px solid;
-  }
+  .env-badge { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; border: 1px solid; }
   .env-badge.development { color: #7a9e8a; border-color: rgba(122,158,138,0.3); background: rgba(122,158,138,0.08); }
   .env-badge.production  { color: #c8a97e; border-color: rgba(200,169,126,0.3); background: rgba(200,169,126,0.08); }
 
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    letter-spacing: -0.3px;
-    color: var(--text);
-  }
+  header { border-bottom: 1px solid var(--border); padding: 20px 32px 18px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; background: var(--bg); z-index: 10; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 22px; letter-spacing: -0.3px; color: var(--text); }
   .logo span { color: var(--accent); font-style: italic; }
-  #fecha {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-    margin-left: auto;
-  }
+  #fecha { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.5px; margin-left: auto; }
 
-  main {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 1px;
-    background: var(--border);
-    min-height: calc(100vh - 62px);
-  }
-
+  /* ── LAYOUT ─── */
+  .app { display: grid; grid-template-columns: 1fr 320px; gap: 1px; background: var(--border); min-height: calc(100vh - 62px); }
   .col-main { background: var(--bg); display: flex; flex-direction: column; }
-  .sidebar   { background: var(--bg2); display: flex; flex-direction: column; gap: 1px; }
+  .sidebar { background: var(--bg2); display: flex; flex-direction: column; gap: 1px; }
   .sidebar > div { background: var(--bg2); padding: 24px; }
 
-  .panel-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
   .panel-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  input[type="text"], textarea {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: var(--r);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 14px;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.15s;
-    width: 100%;
+  input[type="text"], textarea, select {
+    background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r);
+    color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 14px;
+    padding: 10px 14px; outline: none; transition: border-color 0.15s; width: 100%;
   }
-  input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
+  input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--accent); }
   input[type="text"]::placeholder, textarea::placeholder { color: var(--muted); }
+  select { cursor: pointer; }
+  select option { background: var(--bg3); }
 
-  button {
-    background: transparent;
-    border: 1px solid var(--border2);
-    border-radius: var(--r);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 13px;
-    padding: 9px 16px;
-    cursor: pointer;
-    transition: background 0.12s, border-color 0.12s;
-    white-space: nowrap;
-  }
+  button { background: transparent; border: 1px solid var(--border2); border-radius: var(--r); color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 13px; padding: 9px 16px; cursor: pointer; transition: background 0.12s, border-color 0.12s; white-space: nowrap; }
   button:hover { background: var(--bg3); }
   button.primary { background: var(--accent); border-color: var(--accent); color: #1a140a; font-weight: 600; }
   button.primary:hover { opacity: 0.88; }
-  button.icon-btn { background: transparent; border: none; color: var(--muted); padding: 4px 6px; font-size: 13px; line-height: 1; }
-  button.icon-btn:hover { color: var(--danger); background: transparent; }
-  button.icon-btn.confirm:hover { color: var(--accent2); }
+  button.icon-btn { background: transparent; border: none; color: var(--muted); padding: 4px 7px; font-size: 12px; line-height: 1; border-radius: 6px; }
+  button.icon-btn:hover { color: var(--text); background: var(--bg3); }
+  button.icon-btn.del:hover { color: var(--danger); background: transparent; }
 
-  /* ── IDEA ACTIVA ─────────────────────────────────────── */
-  #activa-banner {
-    padding: 20px 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .activa-empty {
-    color: var(--muted);
-    font-size: 13px;
-    font-style: italic;
-  }
-  .activa-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    background: var(--bg2);
-    border: 1px solid rgba(200,169,126,0.25);
-    border-radius: var(--r);
-    padding: 16px 20px;
-  }
-  .activa-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-top: 7px;
-    flex-shrink: 0;
-    box-shadow: 0 0 8px rgba(200,169,126,0.5);
-  }
+  /* ── IDEA ACTIVA BANNER ─── */
+  #activa-banner { padding: 20px 32px; border-bottom: 1px solid var(--border); }
+  .activa-empty { color: var(--muted); font-size: 13px; font-style: italic; }
+  .activa-card { display: flex; align-items: flex-start; gap: 16px; background: var(--bg2); border: 1px solid rgba(200,169,126,0.25); border-radius: var(--r); padding: 16px 20px; }
+  .activa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 8px rgba(200,169,126,0.5); }
   .activa-info { flex: 1; }
-  .activa-nombre {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    color: var(--text);
-    line-height: 1.3;
-  }
-  .activa-desc {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-  .activa-actions { display: flex; gap: 6px; align-items: center; }
+  .activa-nombre { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); line-height: 1.3; }
+  .activa-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .activa-actions { display: flex; gap: 4px; }
 
-  /* ── CAPTURA ─────────────────────────────────────────── */
-  #capture-section {
-    padding: 24px 32px;
-    border-bottom: 1px solid var(--border);
-  }
-  .capture-form { display: flex; flex-direction: column; gap: 8px; }
-  .capture-row { display: flex; gap: 8px; }
+  /* ── CAPTURA ─── */
+  #capture-section { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+  .capture-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .capture-row input { flex: 1; }
-  #capture-desc { resize: none; height: 60px; font-size: 13px; }
+  #capture-desc { resize: none; height: 56px; font-size: 13px; }
 
-  /* ── IDEAS LIST ──────────────────────────────────────── */
+  /* ── LISTA ─── */
   #ideas-section { padding: 24px 32px; flex: 1; }
-
   .estado-group { margin-bottom: 28px; }
-  .estado-header {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .estado-header { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
   .estado-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .estado-count {
-    background: var(--bg3);
-    border-radius: 20px;
-    padding: 1px 7px;
-    font-size: 10px;
-    color: var(--muted);
-  }
+  .estado-count { background: var(--bg3); border-radius: 20px; padding: 1px 7px; font-size: 10px; color: var(--muted); }
 
-  .idea-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    margin-bottom: 6px;
-    transition: border-color 0.15s;
-    animation: fadeIn 0.2s ease;
-  }
+  .idea-card { display: flex; align-items: flex-start; gap: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; transition: border-color 0.15s; animation: fadeIn 0.2s ease; cursor: pointer; }
   .idea-card:hover { border-color: var(--border2); }
-  .idea-card.activa { border-color: rgba(200,169,126,0.2); }
   .idea-card.archivada { opacity: 0.45; }
-
   .estado-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
   .estado-dot.incubando { background: var(--accent3); }
   .estado-dot.activa    { background: var(--accent); box-shadow: 0 0 6px rgba(200,169,126,0.4); }
   .estado-dot.archivada { background: var(--muted); }
-
   .idea-body { flex: 1; min-width: 0; }
-  .idea-nombre { font-size: 14px; font-weight: 500; color: var(--text); }
+  .idea-nombre { font-size: 14px; font-weight: 500; }
   .idea-desc   { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .idea-ts     { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 4px; }
-
   .idea-actions { display: flex; gap: 2px; align-items: flex-start; flex-shrink: 0; }
-
-  .estado-select {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: 6px;
-    color: var(--muted);
-    font-size: 11px;
-    padding: 3px 6px;
-    cursor: pointer;
-    outline: none;
-    font-family: 'DM Mono', monospace;
-  }
-  .estado-select:focus { border-color: var(--accent); }
-
   .empty { color: var(--muted); font-size: 13px; font-style: italic; padding: 8px 0; }
 
-  /* ── SIDEBAR ─────────────────────────────────────────── */
-  #reflexion-text {
-    width: 100%;
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: var(--r);
-    color: var(--text);
-    font-family: 'DM Serif Display', serif;
-    font-style: italic;
-    font-size: 14px;
-    line-height: 1.8;
-    padding: 12px 14px;
-    resize: none;
-    height: 120px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  /* ── DRAWER FICHA ─── */
+  .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; }
+  .drawer-overlay.open { display: block; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 520px; max-width: 100vw; background: var(--bg2); border-left: 1px solid var(--border2); z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s ease; overflow: hidden; }
+  .drawer.open { transform: translateX(0); }
+
+  .drawer-header { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; }
+  .drawer-header-info { flex: 1; }
+  .drawer-estado { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .drawer-nombre { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); line-height: 1.25; outline: none; width: 100%; background: transparent; border: none; padding: 0; }
+  .drawer-nombre:focus { color: var(--accent); }
+
+  .drawer-body { flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .field-group textarea { resize: none; height: 80px; font-size: 13px; }
+  .field-group textarea.short { height: 56px; }
+  .field-group input[type="text"] { font-size: 13px; }
+
+  .metas-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .meta-item { display: flex; align-items: center; gap: 10px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
+  .meta-check { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--border2); background: transparent; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; padding: 0; }
+  .meta-check.done { background: var(--accent2); border-color: var(--accent2); }
+  .meta-check.done::after { content: '✓'; font-size: 9px; color: #0a1a12; }
+  .meta-texto { flex: 1; font-size: 13px; }
+  .meta-texto.done { text-decoration: line-through; color: var(--muted); }
+  .meta-add-row { display: flex; gap: 8px; }
+  .meta-add-row input { flex: 1; font-size: 13px; padding: 8px 12px; }
+
+  .drawer-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* ── SIDEBAR ─── */
+  #reflexion-text { width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r); color: var(--text); font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; line-height: 1.8; padding: 12px 14px; resize: none; height: 120px; outline: none; transition: border-color 0.15s; }
   #reflexion-text:focus { border-color: var(--accent3); }
   .reflexion-save { margin-top: 8px; font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
 
   .streak-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
-  .streak-day {
-    width: 26px; height: 26px; border-radius: 5px;
-    background: var(--bg3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted);
-    cursor: pointer; transition: background 0.1s;
-  }
+  .streak-day { width: 26px; height: 26px; border-radius: 5px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); cursor: pointer; transition: background 0.1s; }
   .streak-day.on { background: rgba(200,169,126,0.2); border-color: var(--accent); color: var(--accent); }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 820px) {
-    main { grid-template-columns: 1fr; }
-    .sidebar { order: -1; }
+    .app { grid-template-columns: 1fr; }
+    .drawer { width: 100vw; }
   }
 </style>
 </head>
@@ -294,31 +155,26 @@
   <div id="fecha"></div>
 </header>
 
-<main>
+<div class="app">
   <div class="col-main">
 
-    <!-- Idea activa -->
     <div id="activa-banner">
       <div class="panel-label">idea activa</div>
-      <div id="activa-content"><div class="activa-empty">Sin idea activa — elegí una de la lista para enfocarte.</div></div>
+      <div id="activa-content"><div class="activa-empty">Sin idea activa — activá una desde la lista.</div></div>
     </div>
 
-    <!-- Captura rápida -->
     <div id="capture-section">
       <div class="panel-label">captura una idea</div>
-      <div class="capture-form">
-        <div class="capture-row">
-          <input type="text" id="capture-nombre" placeholder="Nombre de la idea…" autocomplete="off" />
-          <button class="primary" onclick="captureIdea()">+ Capturar</button>
-        </div>
-        <textarea id="capture-desc" placeholder="Descripción corta (opcional)…"></textarea>
+      <div class="capture-row">
+        <input type="text" id="capture-nombre" placeholder="Nombre de la idea…" autocomplete="off" />
+        <button class="primary" onclick="captureIdea()">+ Capturar</button>
       </div>
+      <textarea id="capture-desc" placeholder="Descripción corta (opcional)…"></textarea>
     </div>
 
-    <!-- Lista de ideas -->
     <div id="ideas-section">
-      <div id="ideas-incubando" class="estado-grupo"></div>
-      <div id="ideas-archivadas" class="estado-grupo"></div>
+      <div id="ideas-incubando"></div>
+      <div id="ideas-archivadas"></div>
     </div>
 
   </div>
@@ -334,7 +190,53 @@
       <div class="streak-row" id="streak-row"></div>
     </div>
   </div>
-</main>
+</div>
+
+<!-- Drawer ficha -->
+<div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-header-info">
+      <div class="drawer-estado" id="drawer-estado"></div>
+      <input class="drawer-nombre" id="drawer-nombre" type="text" placeholder="Nombre de la idea…" />
+    </div>
+    <button class="icon-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="field-group">
+      <div class="field-label">Descripción</div>
+      <textarea id="field-descripcion" placeholder="¿De qué trata esta idea?"></textarea>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Problema que resuelve</div>
+      <textarea class="short" id="field-problema" placeholder="¿Qué dolor o necesidad atiende?"></textarea>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Mercado objetivo</div>
+      <input type="text" id="field-mercado" placeholder="¿A quién va dirigido?" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Costos estimados</div>
+      <input type="text" id="field-costos" placeholder="Inversión inicial estimada…" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Potencial de ingreso</div>
+      <input type="text" id="field-potencial" placeholder="¿Cuánto podría generar?" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Metas</div>
+      <div class="metas-list" id="metas-list"></div>
+      <div class="meta-add-row">
+        <input type="text" id="meta-input" placeholder="Nueva meta…" />
+        <button onclick="addMeta()">+ Agregar</button>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <button id="drawer-activar-btn" onclick="activarDesdeDrawer()"></button>
+    <button class="primary" onclick="saveDrawer()">Guardar</button>
+  </div>
+</div>
 
 <script>
 const $ = id => document.getElementById(id);
@@ -347,12 +249,7 @@ function fmtFecha(ts) {
   const d = new Date(ts);
   return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 }
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escAttr(s) {
-  return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 async function api(method, path, body) {
   const res = await fetch(path, {
@@ -366,7 +263,7 @@ async function api(method, path, body) {
 // ── FECHA + ENV ───────────────────────────────────────────
 const DIAS  = ['dom','lun','mar','mié','jue','vie','sáb'];
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-(async function() {
+(async () => {
   const d = new Date();
   $('fecha').textContent = `${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
   const env = await api('GET', '/env');
@@ -385,14 +282,14 @@ async function loadIdeas() {
 
 function renderAll() {
   renderActiva();
-  renderIdeas();
+  renderLista();
 }
 
 function renderActiva() {
   const activa = ideas.find(i => i.estado === 'activa');
   const el = $('activa-content');
   if (!activa) {
-    el.innerHTML = '<div class="activa-empty">Sin idea activa — elegí una de la lista para enfocarte.</div>';
+    el.innerHTML = '<div class="activa-empty">Sin idea activa — activá una desde la lista.</div>';
     return;
   }
   el.innerHTML = `
@@ -403,19 +300,16 @@ function renderActiva() {
         ${activa.descripcion ? `<div class="activa-desc">${escHtml(activa.descripcion)}</div>` : ''}
       </div>
       <div class="activa-actions">
-        <button class="icon-btn confirm" title="Archivar" onclick="cambiarEstado(${activa.id}, 'archivada')">✓ Completar</button>
-        <button class="icon-btn" title="Mover a incubación" onclick="cambiarEstado(${activa.id}, 'incubando')">↓ Incubar</button>
+        <button class="icon-btn" onclick="openDrawer(${activa.id})">Ver ficha</button>
+        <button class="icon-btn" onclick="cambiarEstado(${activa.id},'archivada')">✓ Completar</button>
+        <button class="icon-btn" onclick="cambiarEstado(${activa.id},'incubando')">↓ Incubar</button>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-function renderIdeas() {
-  const incubando = ideas.filter(i => i.estado === 'incubando');
-  const archivadas = ideas.filter(i => i.estado === 'archivada');
-
-  renderGrupo('ideas-incubando', 'en incubación', incubando);
-  renderGrupo('ideas-archivadas', 'archivadas', archivadas);
+function renderLista() {
+  renderGrupo('ideas-incubando', 'en incubación', ideas.filter(i => i.estado === 'incubando'));
+  renderGrupo('ideas-archivadas', 'archivadas',   ideas.filter(i => i.estado === 'archivada'));
 }
 
 function renderGrupo(containerId, label, lista) {
@@ -423,34 +317,28 @@ function renderGrupo(containerId, label, lista) {
   if (!lista.length) { el.innerHTML = ''; return; }
   el.innerHTML = `
     <div class="estado-group">
-      <div class="estado-header">
-        ${label}
-        <span class="estado-count">${lista.length}</span>
-      </div>
+      <div class="estado-header">${label}<span class="estado-count">${lista.length}</span></div>
       ${lista.map(idea => `
-        <div class="idea-card ${idea.estado}">
+        <div class="idea-card ${idea.estado}" onclick="openDrawer(${idea.id})">
           <div class="estado-dot ${idea.estado}"></div>
           <div class="idea-body">
             <div class="idea-nombre">${escHtml(idea.nombre)}</div>
             ${idea.descripcion ? `<div class="idea-desc">${escHtml(idea.descripcion)}</div>` : ''}
             <div class="idea-ts">${fmtFecha(idea.ts)}</div>
           </div>
-          <div class="idea-actions">
-            ${idea.estado === 'incubando' ? `<button class="icon-btn confirm" title="Activar" onclick="activar(${idea.id})">▶ Activar</button>` : ''}
-            ${idea.estado === 'archivada' ? `<button class="icon-btn" title="Reactivar" onclick="cambiarEstado(${idea.id}, 'incubando')">↺</button>` : ''}
-            <button class="icon-btn" title="Eliminar" onclick="eliminarIdea(${idea.id})">✕</button>
+          <div class="idea-actions" onclick="event.stopPropagation()">
+            ${idea.estado === 'incubando' ? `<button class="icon-btn" onclick="activar(${idea.id})">▶</button>` : ''}
+            ${idea.estado === 'archivada' ? `<button class="icon-btn" onclick="cambiarEstado(${idea.id},'incubando')">↺</button>` : ''}
+            <button class="icon-btn del" onclick="eliminarIdea(${idea.id})">✕</button>
           </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
+        </div>`).join('')}
+    </div>`;
 }
 
 async function captureIdea() {
   const nombre = $('capture-nombre').value.trim();
   if (!nombre) return;
-  const descripcion = $('capture-desc').value.trim();
-  const idea = await api('POST', '/api/ideas', { nombre, descripcion });
+  const idea = await api('POST', '/api/ideas', { nombre, descripcion: $('capture-desc').value.trim() });
   ideas.unshift(idea);
   $('capture-nombre').value = '';
   $('capture-desc').value = '';
@@ -461,16 +349,16 @@ async function activar(id) {
   const yaActiva = ideas.find(i => i.estado === 'activa');
   if (yaActiva) {
     await api('PATCH', `/api/ideas/${yaActiva.id}`, { estado: 'incubando' });
-    const idx = ideas.findIndex(i => i.id === yaActiva.id);
-    if (idx !== -1) ideas[idx].estado = 'incubando';
+    ideas.find(i => i.id === yaActiva.id).estado = 'incubando';
   }
-  await cambiarEstado(id, 'activa');
+  await api('PATCH', `/api/ideas/${id}`, { estado: 'activa' });
+  ideas.find(i => i.id === id).estado = 'activa';
+  renderAll();
 }
 
 async function cambiarEstado(id, estado) {
   await api('PATCH', `/api/ideas/${id}`, { estado });
-  const idx = ideas.findIndex(i => i.id === id);
-  if (idx !== -1) ideas[idx].estado = estado;
+  ideas.find(i => i.id === id).estado = estado;
   renderAll();
 }
 
@@ -481,6 +369,112 @@ async function eliminarIdea(id) {
 }
 
 $('capture-nombre').addEventListener('keydown', e => { if (e.key === 'Enter') captureIdea(); });
+
+// ── DRAWER ────────────────────────────────────────────────
+let drawerIdeaId = null;
+
+function openDrawer(id) {
+  const idea = ideas.find(i => i.id === id);
+  if (!idea) return;
+  drawerIdeaId = id;
+
+  const dotColor = { incubando: 'var(--accent3)', activa: 'var(--accent)', archivada: 'var(--muted)' };
+  $('drawer-estado').innerHTML = `<span style="width:6px;height:6px;border-radius:50%;background:${dotColor[idea.estado]};display:inline-block"></span>${idea.estado}`;
+  $('drawer-nombre').value       = idea.nombre        || '';
+  $('field-descripcion').value   = idea.descripcion   || '';
+  $('field-problema').value      = idea.problema      || '';
+  $('field-mercado').value       = idea.mercado       || '';
+  $('field-costos').value        = idea.costos        || '';
+  $('field-potencial').value     = idea.potencial     || '';
+
+  renderMetas(idea.metas || []);
+
+  const btn = $('drawer-activar-btn');
+  if (idea.estado === 'incubando') {
+    btn.textContent = '▶ Activar';
+    btn.style.display = '';
+  } else if (idea.estado === 'activa') {
+    btn.textContent = '↓ Incubar';
+    btn.style.display = '';
+  } else {
+    btn.style.display = 'none';
+  }
+
+  $('overlay').classList.add('open');
+  $('drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  $('overlay').classList.remove('open');
+  $('drawer').classList.remove('open');
+  drawerIdeaId = null;
+}
+
+async function saveDrawer() {
+  if (!drawerIdeaId) return;
+  const patch = {
+    nombre:      $('drawer-nombre').value.trim(),
+    descripcion: $('field-descripcion').value.trim(),
+    problema:    $('field-problema').value.trim(),
+    mercado:     $('field-mercado').value.trim(),
+    costos:      $('field-costos').value.trim(),
+    potencial:   $('field-potencial').value.trim(),
+  };
+  const updated = await api('PATCH', `/api/ideas/${drawerIdeaId}`, patch);
+  const idx = ideas.findIndex(i => i.id === drawerIdeaId);
+  if (idx !== -1) ideas[idx] = { ...ideas[idx], ...patch };
+  renderAll();
+  closeDrawer();
+}
+
+async function activarDesdeDrawer() {
+  if (!drawerIdeaId) return;
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  if (idea.estado === 'incubando') await activar(drawerIdeaId);
+  else if (idea.estado === 'activa') await cambiarEstado(drawerIdeaId, 'incubando');
+  closeDrawer();
+}
+
+// ── METAS ─────────────────────────────────────────────────
+function renderMetas(metas) {
+  $('metas-list').innerHTML = metas.length
+    ? metas.map(m => `
+        <div class="meta-item">
+          <button class="meta-check ${m.done ? 'done' : ''}" onclick="toggleMeta(${m.id})"></button>
+          <span class="meta-texto ${m.done ? 'done' : ''}">${escHtml(m.texto)}</span>
+          <button class="icon-btn del" onclick="deleteMeta(${m.id})">✕</button>
+        </div>`).join('')
+    : '<div class="empty">Sin metas aún.</div>';
+}
+
+async function addMeta() {
+  const input = $('meta-input');
+  const texto = input.value.trim();
+  if (!texto || !drawerIdeaId) return;
+  const meta = await api('POST', `/api/ideas/${drawerIdeaId}/metas`, { texto });
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  idea.metas.push(meta);
+  input.value = '';
+  renderMetas(idea.metas);
+}
+
+async function toggleMeta(metaId) {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  const meta = idea.metas.find(m => m.id === metaId);
+  meta.done = !meta.done;
+  await api('PATCH', `/api/ideas/${drawerIdeaId}/metas/${metaId}`, { done: meta.done });
+  renderMetas(idea.metas);
+}
+
+async function deleteMeta(metaId) {
+  await api('DELETE', `/api/ideas/${drawerIdeaId}/metas/${metaId}`);
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  idea.metas = idea.metas.filter(m => m.id !== metaId);
+  renderMetas(idea.metas);
+}
+
+$('meta-input').addEventListener('keydown', e => { if (e.key === 'Enter') addMeta(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
 // ── REFLEXIÓN ─────────────────────────────────────────────
 const HOY = hoy();
@@ -510,7 +504,6 @@ async function loadStreak() {
 }
 
 function renderStreak() {
-  const row = $('streak-row');
   const days = [];
   for (let i = 13; i >= 0; i--) {
     const d = new Date(); d.setDate(d.getDate() - i);
@@ -518,7 +511,7 @@ function renderStreak() {
     const on = streak.includes(key);
     days.push(`<div class="streak-day ${on?'on':''}" onclick="toggleStreak('${key}')">${d.getDate()}</div>`);
   }
-  row.innerHTML = days.join('');
+  $('streak-row').innerHTML = days.join('');
 }
 
 async function toggleStreak(key) {

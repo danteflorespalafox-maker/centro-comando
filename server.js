@@ -17,7 +17,9 @@ function initDB() {
 
 function readDB() {
   initDB();
-  return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  if (!db.ideas) { db.ideas = []; writeDB(db); }
+  return db;
 }
 
 function writeDB(data) {
