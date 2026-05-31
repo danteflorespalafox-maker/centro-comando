@@ -355,6 +355,97 @@
   .resumen-valor.pos { color: var(--violet2); }
   .resumen-etiqueta { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
 
+  /* ── SALUD ─── */
+  #vista-salud { display: none; flex: 1; flex-direction: column; }
+  #vista-salud.visible { display: flex; }
+
+  .salud-section { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+
+  /* Estado mental */
+  .estado-mental-row { display: flex; gap: 10px; align-items: center; }
+  .estado-btn {
+    width: 44px; height: 44px; border: 1px solid var(--border2);
+    background: var(--bg3); color: var(--muted);
+    font-family: 'Cinzel', serif; font-size: 16px;
+    cursor: pointer; transition: all 0.15s;
+    clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .estado-btn:hover { border-color: var(--border2); transform: translateY(-2px); background: var(--bg2); }
+  .estado-btn.active-1 { background: rgba(139,26,26,0.2); border-color: var(--red2); color: var(--red2); }
+  .estado-btn.active-2 { background: rgba(139,26,26,0.12); border-color: rgba(192,57,43,0.5); color: #c87070; }
+  .estado-btn.active-3 { background: rgba(144,144,170,0.1); border-color: var(--silver); color: var(--silver); }
+  .estado-btn.active-4 { background: rgba(91,31,138,0.12); border-color: rgba(139,92,246,0.5); color: var(--violet2); }
+  .estado-btn.active-5 { background: rgba(91,31,138,0.2); border-color: var(--violet2); color: var(--violet2); }
+  .estado-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); margin-left: 8px; }
+
+  /* Hábitos */
+  .habitos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .habito-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 16px 14px; cursor: pointer;
+    transition: all 0.18s;
+    clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .habito-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .habito-card.done { background: rgba(91,31,138,0.1); border-color: rgba(139,92,246,0.4); }
+  .habito-icon { font-size: 22px; line-height: 1; }
+  .habito-nombre { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+  .habito-card.done .habito-nombre { color: var(--violet2); }
+  .habito-check { width: 14px; height: 14px; border: 1px solid var(--border2); margin-top: auto; transition: all 0.15s; }
+  .habito-card.done .habito-check { background: var(--violet2); border-color: var(--violet2); box-shadow: 0 0 8px rgba(139,92,246,0.4); }
+
+  /* Historial */
+  .historial-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .hist-dia {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 8px 6px; cursor: default;
+    background: var(--bg2); border: 1px solid var(--border);
+    clip-path: polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px);
+    min-width: 36px; transition: border-color 0.15s;
+  }
+  .hist-dia:hover { border-color: var(--border2); }
+  .hist-dia.hoy { border-color: rgba(139,92,246,0.4); }
+  .hist-fecha { font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--muted); letter-spacing: 1px; }
+  .hist-dots { display: flex; gap: 2px; }
+  .hist-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); }
+  .hist-dot.on { background: var(--violet2); box-shadow: 0 0 4px rgba(139,92,246,0.5); }
+  .hist-estado { font-size: 10px; }
+
+  /* Estadísticas */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .stat-block { display: flex; flex-direction: column; gap: 10px; }
+  .stat-habito-row { display: flex; flex-direction: column; gap: 4px; }
+  .stat-habito-header { display: flex; justify-content: space-between; align-items: center; }
+  .stat-habito-nombre { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text); display: flex; align-items: center; gap: 6px; }
+  .stat-habito-pct { font-family: 'Share Tech Mono', monospace; font-size: 11px; font-weight: 600; color: var(--violet2); }
+  .stat-bar-wrap { height: 4px; background: rgba(255,255,255,0.05); overflow: hidden; }
+  .stat-bar { height: 100%; background: linear-gradient(90deg, var(--violet), var(--violet2)); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+  .stat-bar.low { background: linear-gradient(90deg, var(--red), var(--red2)); }
+  .stat-bar.mid { background: linear-gradient(90deg, #7a6020, #c8a04a); }
+
+  /* Gráfica estado mental */
+  .mental-chart { display: flex; align-items: flex-end; gap: 3px; height: 60px; }
+  .mental-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+  .mental-bar { width: 100%; border-radius: 2px 2px 0 0; transition: height 0.4s ease; min-height: 2px; }
+  .mental-bar.lvl-1 { background: var(--red2); }
+  .mental-bar.lvl-2 { background: #c87070; }
+  .mental-bar.lvl-3 { background: var(--silver); }
+  .mental-bar.lvl-4 { background: rgba(139,92,246,0.6); }
+  .mental-bar.lvl-5 { background: var(--violet2); box-shadow: 0 0 6px rgba(139,92,246,0.4); }
+  .mental-bar.vacio { background: var(--border2); }
+  .mental-fecha { font-family: 'Share Tech Mono', monospace; font-size: 7px; color: var(--muted); }
+
+  /* Notas diario */
+  .nota-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.2s ease; }
+  .nota-item:last-child { border-bottom: none; }
+  .nota-fecha-col { flex-shrink: 0; width: 80px; }
+  .nota-fecha-txt { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); }
+  .nota-estado-txt { font-size: 14px; margin-top: 4px; }
+  .nota-texto { font-size: 12px; color: var(--text); line-height: 1.7; font-style: italic; flex: 1; }
+  .notas-empty { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
   @keyframes fadeIn  { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -383,6 +474,7 @@
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchTab('ideas')">Operaciones</button>
       <button class="nav-tab" onclick="switchTab('economia')">Economía</button>
+      <button class="nav-tab" onclick="switchTab('salud')">Salud</button>
     </div>
 
     <!-- Vista ideas -->
@@ -474,6 +566,57 @@
       </div>
 
     </div><!-- /vista-economia -->
+
+    <!-- Vista salud -->
+    <div id="vista-salud">
+
+      <div class="salud-section">
+        <div class="sec-label">Estado mental de hoy</div>
+        <div class="estado-mental-row">
+          <button class="estado-btn" id="em-1" onclick="setEstado(1)" title="Muy mal">1</button>
+          <button class="estado-btn" id="em-2" onclick="setEstado(2)" title="Mal">2</button>
+          <button class="estado-btn" id="em-3" onclick="setEstado(3)" title="Regular">3</button>
+          <button class="estado-btn" id="em-4" onclick="setEstado(4)" title="Bien">4</button>
+          <button class="estado-btn" id="em-5" onclick="setEstado(5)" title="Excelente">5</button>
+          <span class="estado-label" id="estado-label">// Sin registrar</span>
+        </div>
+      </div>
+
+      <div class="salud-section">
+        <div class="sec-label">Hábitos del día</div>
+        <div class="habitos-grid" id="habitos-grid"></div>
+      </div>
+
+      <div class="salud-section">
+        <div class="sec-label">Nota del día</div>
+        <textarea id="salud-nota" style="height:80px;font-size:12px;resize:none" placeholder="¿Algo que quieras procesar hoy?"></textarea>
+      </div>
+
+      <div class="salud-section">
+        <div class="sec-label">Estadísticas generales</div>
+        <div class="stats-grid">
+          <div class="stat-block">
+            <div class="sec-label" style="margin-bottom:8px">Cumplimiento de hábitos</div>
+            <div id="stats-habitos"></div>
+          </div>
+          <div class="stat-block">
+            <div class="sec-label" style="margin-bottom:8px">Estado mental — últimos 30 días</div>
+            <div class="mental-chart" id="mental-chart"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="salud-section">
+        <div class="sec-label">Historial completo</div>
+        <div class="historial-row" id="historial-row"></div>
+      </div>
+
+      <div class="salud-section" style="border-bottom:none">
+        <div class="sec-label">Diario — notas anteriores</div>
+        <div id="notas-list"></div>
+      </div>
+
+    </div><!-- /vista-salud -->
 
   </div>
 
@@ -636,7 +779,9 @@ function switchTab(tab) {
   document.querySelector(`.nav-tab[onclick="switchTab('${tab}')"]`).classList.add('active');
   $('vista-ideas').classList.toggle('hidden', tab !== 'ideas');
   $('vista-economia').classList.toggle('visible', tab === 'economia');
+  $('vista-salud').classList.toggle('visible', tab === 'salud');
   if (tab === 'economia') loadEconomia();
+  if (tab === 'salud') loadSalud();
 }
 
 // ── IDEAS ─────────────────────────────────────────────────
@@ -1093,6 +1238,146 @@ async function deleteIngreso(id) {
 }
 $('gasto-desc').addEventListener('keydown',   e => { if (e.key === 'Enter') addGasto(); });
 $('ingreso-desc').addEventListener('keydown', e => { if (e.key === 'Enter') addIngreso(); });
+
+// ── SALUD ─────────────────────────────────────────────────
+const HABITOS = [
+  { key: 'lectura',   nombre: 'Lectura',   icon: '📖' },
+  { key: 'sueno',     nombre: 'Sueño',     icon: '🌙' },
+  { key: 'agua',      nombre: 'Agua',      icon: '💧' },
+  { key: 'ejercicio', nombre: 'Ejercicio', icon: '⚡' },
+  { key: 'hobbies',   nombre: 'Hobbies',   icon: '🎯' },
+];
+
+const ESTADO_EMOJI = { 0: '', 1: '😔', 2: '😕', 3: '😐', 4: '🙂', 5: '💪' };
+const ESTADO_TEXTO = { 0: '// Sin registrar', 1: 'Muy mal', 2: 'Mal', 3: 'Regular', 4: 'Bien', 5: 'Excelente' };
+
+let saludHoy = { habitos: {}, estadoMental: 0, nota: '' };
+let saludTimer;
+
+async function loadSalud() {
+  saludHoy = await api('GET', `/api/salud/${HOY}`);
+  renderSalud();
+  renderHistorial();
+}
+
+function renderSalud() {
+  // Estado mental
+  [1,2,3,4,5].forEach(n => {
+    const btn = $(`em-${n}`);
+    btn.className = `estado-btn${saludHoy.estadoMental === n ? ` active-${n}` : ''}`;
+    btn.textContent = ESTADO_EMOJI[n] || n;
+  });
+  $('estado-label').textContent = ESTADO_TEXTO[saludHoy.estadoMental] || '// Sin registrar';
+
+  // Hábitos
+  $('habitos-grid').innerHTML = HABITOS.map(h => {
+    const done = saludHoy.habitos[h.key] || false;
+    return `
+      <div class="habito-card ${done ? 'done' : ''}" onclick="toggleHabito('${h.key}')">
+        <div class="habito-icon">${h.icon}</div>
+        <div class="habito-nombre">${h.nombre}</div>
+        <div class="habito-check"></div>
+      </div>`;
+  }).join('');
+
+  // Nota
+  $('salud-nota').value = saludHoy.nota || '';
+}
+
+async function setEstado(n) {
+  saludHoy.estadoMental = saludHoy.estadoMental === n ? 0 : n;
+  renderSalud();
+  await saveSalud();
+  toast('Estado registrado');
+}
+
+async function toggleHabito(key) {
+  saludHoy.habitos[key] = !saludHoy.habitos[key];
+  renderSalud();
+  await saveSalud();
+  const h = HABITOS.find(h => h.key === key);
+  toast(saludHoy.habitos[key] ? `${h.nombre} completado` : `${h.nombre} desmarcado`);
+}
+
+async function saveSalud() {
+  await api('PUT', `/api/salud/${HOY}`, saludHoy);
+}
+
+$('salud-nota') && $('salud-nota').addEventListener('input', () => {
+  saludHoy.nota = $('salud-nota').value;
+  clearTimeout(saludTimer);
+  saludTimer = setTimeout(async () => { await saveSalud(); toast('Nota guardada'); }, 900);
+});
+
+async function renderHistorial() {
+  const DIAS_HISTORIAL = 30;
+  const DIAS_STATS = 30;
+
+  // Cargar todos los días necesarios
+  const registros = [];
+  for (let i = DIAS_HISTORIAL - 1; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const data = await api('GET', `/api/salud/${key}`);
+    registros.push({ key, d, data });
+  }
+
+  // Historial visual
+  const hoy_key = HOY;
+  $('historial-row').innerHTML = registros.map(({ key, d, data }) => {
+    const dots = HABITOS.map(h => `<div class="hist-dot ${data.habitos[h.key] ? 'on' : ''}"></div>`).join('');
+    return `
+      <div class="hist-dia ${key === hoy_key ? 'hoy' : ''}">
+        <div class="hist-fecha">${String(d.getDate()).padStart(2,'0')}</div>
+        <div class="hist-dots">${dots}</div>
+        <div class="hist-estado">${ESTADO_EMOJI[data.estadoMental] || '·'}</div>
+      </div>`;
+  }).join('');
+
+  // Notas del diario
+  const notasConTenido = registros.filter(r => r.data.nota && r.data.nota.trim()).reverse();
+  $('notas-list').innerHTML = notasConTenido.length
+    ? notasConTenido.map(({ d, data }) => `
+        <div class="nota-item">
+          <div class="nota-fecha-col">
+            <div class="nota-fecha-txt">${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()}</div>
+            <div class="nota-estado-txt">${ESTADO_EMOJI[data.estadoMental] || ''}</div>
+          </div>
+          <div class="nota-texto">${escHtml(data.nota)}</div>
+        </div>`).join('')
+    : '<div class="notas-empty">// Sin notas registradas todavía</div>';
+
+  // Estadísticas hábitos
+  const diasConRegistro = registros.filter(r => Object.values(r.data.habitos).some(v => v));
+  const total = diasConRegistro.length || 1;
+
+  $('stats-habitos').innerHTML = HABITOS.map(h => {
+    const cumplidos = registros.filter(r => r.data.habitos[h.key]).length;
+    const pct = Math.round((cumplidos / DIAS_STATS) * 100);
+    const barClass = pct >= 70 ? '' : pct >= 40 ? 'mid' : 'low';
+    return `
+      <div class="stat-habito-row">
+        <div class="stat-habito-header">
+          <div class="stat-habito-nombre">${h.icon} ${h.nombre}</div>
+          <div class="stat-habito-pct">${pct}%</div>
+        </div>
+        <div class="stat-bar-wrap">
+          <div class="stat-bar ${barClass}" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Gráfica estado mental
+  $('mental-chart').innerHTML = registros.map(({ d, data }) => {
+    const val = data.estadoMental || 0;
+    const h = val ? (val / 5) * 100 : 4;
+    return `
+      <div class="mental-bar-wrap">
+        <div class="mental-bar ${val ? `lvl-${val}` : 'vacio'}" style="height:${h}%"></div>
+        <div class="mental-fecha">${String(d.getDate()).padStart(2,'0')}</div>
+      </div>`;
+  }).join('');
+}
 
 // ── INIT ──────────────────────────────────────────────────
 Promise.all([loadIdeas(), loadReflexion(), loadStreak()]);
