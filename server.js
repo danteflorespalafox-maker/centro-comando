@@ -1,244 +1,85 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
+const db = require('./src/db');
 
 const app = express();
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = ENV === 'production' ? 3000 : 3001;
-const DB_FILE = path.join(__dirname, 'data', `db.${ENV}.json`);
 
-// ── INIT DB ──────────────────────────────────────────────
-function initDB() {
-  if (!fs.existsSync(DB_FILE)) {
-    const empty = { ideas: [], prioridades: {}, reflexiones: {}, streak: [] };
-    fs.writeFileSync(DB_FILE, JSON.stringify(empty, null, 2));
-  }
-}
-
-function readDB() {
-  initDB();
-  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
-  if (!db.ideas)    { db.ideas = []; writeDB(db); }
-  if (!db.economia) { db.economia = { colchon: 0, gastos: [], ingresos: [] }; writeDB(db); }
-  if (!db.salud)    { db.salud = {}; writeDB(db); }
-  if (!db.campo)    { db.campo = []; writeDB(db); }
-  return db;
-}
-
-function writeDB(data) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-}
-
-// ── MIDDLEWARE ───────────────────────────────────────────
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Inyectar ENV al frontend
-app.get('/env', (req, res) => {
-  res.json({ env: ENV, port: PORT });
-});
+app.get('/env', (req, res) => res.json({ env: ENV, port: PORT }));
 
-// ── API: DB COMPLETA ─────────────────────────────────────
-app.get('/api/db', (req, res) => {
-  res.json(readDB());
-});
-
-app.post('/api/db', (req, res) => {
-  writeDB(req.body);
-  res.json({ ok: true });
-});
-
-// ── API: IDEAS ────────────────────────────────────────────
-app.get('/api/ideas', (req, res) => {
-  res.json(readDB().ideas);
-});
+// ── IDEAS ─────────────────────────────────────────────────
+app.get('/api/ideas', (req, res) => res.json(db.ideas.getAll()));
 
 app.post('/api/ideas', (req, res) => {
-  const db = readDB();
-  const idea = { id: Date.now(), nombre: req.body.nombre, descripcion: req.body.descripcion || '', estado: 'incubando', metas: [], ts: Date.now() };
-  db.ideas.unshift(idea);
-  writeDB(db);
+  const idea = db.ideas.create({ id: Date.now(), nombre: req.body.nombre, descripcion: req.body.descripcion || '', ts: Date.now() });
   res.json(idea);
 });
 
 app.patch('/api/ideas/:id', (req, res) => {
-  const db = readDB();
-  const idea = db.ideas.find(i => i.id == req.params.id);
+  const idea = db.ideas.update(req.params.id, req.body);
   if (!idea) return res.status(404).json({ error: 'not found' });
-  Object.assign(idea, req.body);
-  writeDB(db);
   res.json(idea);
 });
 
 app.delete('/api/ideas/:id', (req, res) => {
-  const db = readDB();
-  db.ideas = db.ideas.filter(i => i.id != req.params.id);
-  writeDB(db);
+  db.ideas.delete(req.params.id);
   res.json({ ok: true });
 });
 
-// ── API: METAS DE UNA IDEA ────────────────────────────────
+// ── METAS ─────────────────────────────────────────────────
 app.post('/api/ideas/:id/metas', (req, res) => {
-  const db = readDB();
-  const idea = db.ideas.find(i => i.id == req.params.id);
-  if (!idea) return res.status(404).json({ error: 'not found' });
-  const meta = { id: Date.now(), texto: req.body.texto, done: false };
-  idea.metas.push(meta);
-  writeDB(db);
+  const meta = db.metas.create(req.params.id, req.body);
   res.json(meta);
 });
 
 app.patch('/api/ideas/:id/metas/:metaId', (req, res) => {
-  const db = readDB();
-  const idea = db.ideas.find(i => i.id == req.params.id);
-  if (!idea) return res.status(404).json({ error: 'not found' });
-  const meta = idea.metas.find(m => m.id == req.params.metaId);
-  if (!meta) return res.status(404).json({ error: 'not found' });
-  Object.assign(meta, req.body);
-  writeDB(db);
+  const meta = db.metas.update(req.params.metaId, req.body);
   res.json(meta);
 });
 
 app.delete('/api/ideas/:id/metas/:metaId', (req, res) => {
-  const db = readDB();
-  const idea = db.ideas.find(i => i.id == req.params.id);
-  if (!idea) return res.status(404).json({ error: 'not found' });
-  idea.metas = idea.metas.filter(m => m.id != req.params.metaId);
-  writeDB(db);
+  db.metas.delete(req.params.metaId);
   res.json({ ok: true });
 });
 
-// ── API: ECONOMÍA ─────────────────────────────────────────
-app.get('/api/economia', (req, res) => {
-  res.json(readDB().economia);
-});
+// ── ECONOMÍA ──────────────────────────────────────────────
+app.get('/api/economia', (req, res) => res.json(db.economia.get()));
 
 app.put('/api/economia/colchon', (req, res) => {
-  const db = readDB();
-  db.economia.colchon = req.body.colchon;
-  writeDB(db);
+  db.economia.setColchon(req.body.colchon);
   res.json({ ok: true });
 });
 
-app.post('/api/economia/gastos', (req, res) => {
-  const db = readDB();
-  const gasto = { id: Date.now(), descripcion: req.body.descripcion, monto: req.body.monto, categoria: req.body.categoria || 'otro', tipo: req.body.tipo || 'variable', fecha: req.body.fecha || new Date().toISOString().slice(0,10) };
-  db.economia.gastos.push(gasto);
-  writeDB(db);
-  res.json(gasto);
-});
+app.post('/api/economia/gastos', (req, res) => res.json(db.economia.addGasto(req.body)));
+app.delete('/api/economia/gastos/:id', (req, res) => { db.economia.deleteGasto(req.params.id); res.json({ ok: true }); });
 
-app.delete('/api/economia/gastos/:id', (req, res) => {
-  const db = readDB();
-  db.economia.gastos = db.economia.gastos.filter(g => g.id != req.params.id);
-  writeDB(db);
-  res.json({ ok: true });
-});
+app.post('/api/economia/ingresos', (req, res) => res.json(db.economia.addIngreso(req.body)));
+app.delete('/api/economia/ingresos/:id', (req, res) => { db.economia.deleteIngreso(req.params.id); res.json({ ok: true }); });
 
-app.post('/api/economia/ingresos', (req, res) => {
-  const db = readDB();
-  const ingreso = { id: Date.now(), descripcion: req.body.descripcion, monto: req.body.monto, fecha: req.body.fecha || new Date().toISOString().slice(0,10) };
-  db.economia.ingresos.push(ingreso);
-  writeDB(db);
-  res.json(ingreso);
-});
+// ── SALUD ─────────────────────────────────────────────────
+app.get('/api/salud/:fecha', (req, res) => res.json(db.salud.get(req.params.fecha)));
+app.put('/api/salud/:fecha', (req, res) => { db.salud.set(req.params.fecha, req.body); res.json({ ok: true }); });
 
-app.delete('/api/economia/ingresos/:id', (req, res) => {
-  const db = readDB();
-  db.economia.ingresos = db.economia.ingresos.filter(i => i.id != req.params.id);
-  writeDB(db);
-  res.json({ ok: true });
-});
+// ── CAMPO ─────────────────────────────────────────────────
+app.get('/api/campo', (req, res) => res.json(db.campo.getAll()));
+app.post('/api/campo', (req, res) => res.json(db.campo.create(req.body)));
+app.patch('/api/campo/:id', (req, res) => res.json(db.campo.update(req.params.id, req.body)));
+app.delete('/api/campo/:id', (req, res) => { db.campo.delete(req.params.id); res.json({ ok: true }); });
 
-// ── API: CAMPO ────────────────────────────────────────────
-app.get('/api/campo', (req, res) => {
-  res.json(readDB().campo);
-});
+// ── REFLEXIONES ───────────────────────────────────────────
+app.get('/api/reflexion/:fecha', (req, res) => res.json({ text: db.reflexiones.get(req.params.fecha) }));
+app.put('/api/reflexion/:fecha', (req, res) => { db.reflexiones.set(req.params.fecha, req.body.text); res.json({ ok: true }); });
 
-app.post('/api/campo', (req, res) => {
-  const db = readDB();
-  const mov = { id: Date.now(), texto: req.body.texto, fecha: req.body.fecha || new Date().toISOString().slice(0,10), resultado: req.body.resultado || 'pendiente' };
-  db.campo.unshift(mov);
-  writeDB(db);
-  res.json(mov);
-});
-
-app.patch('/api/campo/:id', (req, res) => {
-  const db = readDB();
-  const mov = db.campo.find(m => m.id == req.params.id);
-  if (!mov) return res.status(404).json({ error: 'not found' });
-  Object.assign(mov, req.body);
-  writeDB(db);
-  res.json(mov);
-});
-
-app.delete('/api/campo/:id', (req, res) => {
-  const db = readDB();
-  db.campo = db.campo.filter(m => m.id != req.params.id);
-  writeDB(db);
-  res.json({ ok: true });
-});
-
-// ── API: SALUD ────────────────────────────────────────────
-app.get('/api/salud/:fecha', (req, res) => {
-  const db = readDB();
-  const def = {
-    habitos: { lectura: false, sueno: false, agua: false, ejercicio: false, hobbies: false },
-    estadoMental: 0,
-    nota: ''
-  };
-  res.json(db.salud[req.params.fecha] || def);
-});
-
-app.put('/api/salud/:fecha', (req, res) => {
-  const db = readDB();
-  db.salud[req.params.fecha] = req.body;
-  writeDB(db);
-  res.json({ ok: true });
-});
-
-// ── API: PRIORIDADES (por fecha) ──────────────────────────
-app.get('/api/prioridades/:fecha', (req, res) => {
-  const db = readDB();
-  const def = [{text:'',done:false},{text:'',done:false},{text:'',done:false}];
-  res.json(db.prioridades[req.params.fecha] || def);
-});
-
-app.put('/api/prioridades/:fecha', (req, res) => {
-  const db = readDB();
-  db.prioridades[req.params.fecha] = req.body;
-  writeDB(db);
-  res.json({ ok: true });
-});
-
-// ── API: REFLEXIÓN (por fecha) ────────────────────────────
-app.get('/api/reflexion/:fecha', (req, res) => {
-  const db = readDB();
-  res.json({ text: db.reflexiones[req.params.fecha] || '' });
-});
-
-app.put('/api/reflexion/:fecha', (req, res) => {
-  const db = readDB();
-  db.reflexiones[req.params.fecha] = req.body.text;
-  writeDB(db);
-  res.json({ ok: true });
-});
-
-// ── API: STREAK ───────────────────────────────────────────
-app.get('/api/streak', (req, res) => {
-  res.json(readDB().streak);
-});
-
-app.put('/api/streak', (req, res) => {
-  const db = readDB();
-  db.streak = req.body;
-  writeDB(db);
-  res.json({ ok: true });
-});
+// ── STREAK ────────────────────────────────────────────────
+app.get('/api/streak', (req, res) => res.json(db.streak.getAll()));
+app.put('/api/streak', (req, res) => { db.streak.set(req.body); res.json({ ok: true }); });
 
 // ── START ─────────────────────────────────────────────────
-initDB();
 app.listen(PORT, () => {
-  console.log(`\n  Centro de Comando — ${ENV.toUpperCase()}`);
+  console.log(`\n  NEXUS//A — ${ENV.toUpperCase()}`);
   console.log(`  http://localhost:${PORT}\n`);
 });
