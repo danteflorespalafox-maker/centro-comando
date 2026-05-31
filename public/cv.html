@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — Dante Adair Flores Palafox</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:  #0d0d0d;
+    --dark:   #1a1a1a;
+    --mid:    #4a4a4a;
+    --muted:  #888;
+    --light:  #f5f5f5;
+    --white:  #ffffff;
+    --red:    #8b1a1a;
+    --red2:   #c0392b;
+    --violet: #4a1a7a;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    line-height: 1.55;
+    color: var(--dark);
+    background: #e8e8e8;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 20px auto;
+    background: var(--white);
+    box-shadow: 0 4px 40px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ─── */
+  .header {
+    background: var(--black);
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red2), var(--violet));
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--red2), var(--violet), transparent);
+  }
+  .header-inner { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  .header-name-block { flex: 1; }
+  .header-name {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .header-name .accent { color: var(--red2); }
+  .header-title {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #999;
+    margin-top: 6px;
+  }
+  .header-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid rgba(192,57,43,0.5);
+    box-shadow: 0 0 20px rgba(139,26,26,0.3);
+    flex-shrink: 0;
+  }
+
+  .header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .contact-item {
+    font-size: 10px;
+    color: #aaa;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+  .contact-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--red2); flex-shrink: 0; }
+
+  /* ── PERFIL ─── */
+  .perfil {
+    background: var(--light);
+    padding: 18px 40px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .perfil p {
+    font-size: 11px;
+    color: var(--mid);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .perfil p span { color: var(--red); font-weight: 600; }
+
+  /* ── BODY ─── */
+  .body { display: grid; grid-template-columns: 1fr 200px; flex: 1; }
+  .col-left  { padding: 24px 28px 24px 40px; border-right: 1px solid #ececec; }
+  .col-right { padding: 24px 20px 24px 20px; background: #fafafa; }
+
+  /* ── SECTION ─── */
+  .section { margin-bottom: 22px; }
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(139,26,26,0.3), transparent); }
+
+  /* ── EXPERIENCIA ─── */
+  .exp-item { margin-bottom: 16px; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px; }
+  .exp-org { font-size: 12px; font-weight: 600; color: var(--black); }
+  .exp-role { font-size: 10px; font-weight: 500; color: var(--red); letter-spacing: 0.5px; margin-top: 1px; }
+  .exp-period {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    background: #f0f0f0;
+    padding: 2px 7px;
+    border-left: 2px solid var(--red2);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .exp-bullets { list-style: none; padding: 0; }
+  .exp-bullets li {
+    font-size: 10.5px;
+    color: var(--mid);
+    padding: 2px 0 2px 12px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--red2);
+    font-size: 9px;
+    top: 3px;
+  }
+
+  /* ── SKILLS ─── */
+  .skill-group { margin-bottom: 14px; }
+  .skill-group-title { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dark); margin-bottom: 6px; }
+  .skill-tag-list { display: flex; flex-wrap: wrap; gap: 4px; }
+  .skill-tag {
+    font-size: 9px;
+    padding: 2px 8px;
+    border: 1px solid #ddd;
+    color: var(--mid);
+    background: white;
+    letter-spacing: 0.3px;
+  }
+  .skill-tag.highlight {
+    border-color: rgba(139,26,26,0.3);
+    color: var(--red);
+    background: rgba(139,26,26,0.04);
+  }
+
+  /* ── EDUCACION ─── */
+  .edu-item { margin-bottom: 10px; }
+  .edu-inst { font-size: 11px; font-weight: 600; color: var(--black); }
+  .edu-degree { font-size: 10px; color: var(--mid); margin-top: 2px; }
+  .edu-period { font-size: 9px; color: var(--muted); margin-top: 2px; letter-spacing: 0.5px; }
+  .edu-extra { font-size: 9.5px; color: var(--muted); margin-top: 3px; font-style: italic; }
+
+  /* ── IDIOMAS / EXTRAS ─── */
+  .right-section { margin-bottom: 18px; }
+  .right-section-title { font-family: 'Cinzel', serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid rgba(139,26,26,0.2); }
+  .badge-list { display: flex; flex-direction: column; gap: 5px; }
+  .badge { font-size: 10px; color: var(--mid); padding: 4px 8px; background: white; border: 1px solid #e8e8e8; border-left: 2px solid var(--red2); }
+  .badge span { display: block; font-size: 9px; color: var(--muted); margin-top: 1px; }
+
+  .valor-list { display: flex; flex-direction: column; gap: 4px; }
+  .valor-item { font-size: 10px; color: var(--mid); display: flex; align-items: center; gap: 6px; }
+  .valor-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--violet); flex-shrink: 0; }
+
+  /* ── PRINT ─── */
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; width: 100%; min-height: 100vh; }
+    @page { margin: 0; size: A4; }
+  }
+
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(139,26,26,0.4);
+    transition: all 0.15s;
+  }
+  .print-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  @media print { .print-btn { display: none; } }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">Exportar PDF</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <img src="foto-perfil.jpg" alt="Dante Adair Flores Palafox" class="header-photo" />
+      <div class="header-name-block">
+        <div class="header-name">Dante Adair <span class="accent">Flores</span> Palafox</div>
+        <div class="header-title">Administrador de Empresas · Automatización con IA</div>
+      </div>
+      <div class="header-contact">
+        <div class="contact-item"><span>dante.florespalafox@gmail.com</span><div class="contact-dot"></div></div>
+        <div class="contact-item"><span>673 472 2819</span><div class="contact-dot"></div></div>
+        <div class="contact-item"><span>Salvador Alvarado, Sinaloa</span><div class="contact-dot"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="perfil">
+    <p>
+      Licenciado en Administración de Empresas con experiencia comprobada en instituciones financieras y gubernamentales de alto volumen.
+      Especializado en procesos administrativos, control financiero y atención al cliente en entornos de alta exigencia.
+      <span>Dominio activo de herramientas de inteligencia artificial (Claude, ChatGPT)</span> aplicadas a la automatización
+      de procesos, optimización de flujos de trabajo y análisis de información — perfil diferenciador en el mercado laboral actual.
+    </p>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="col-left">
+
+      <div class="section">
+        <div class="section-title">Experiencia Profesional</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-org">Empresa Privada — Sector Comercial</div>
+              <div class="exp-role">Operador Financiero y CRM</div>
+            </div>
+            <div class="exp-period">2026</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Desarrollo y gestión de CRM para seguimiento de clientes y pipeline de ventas.</li>
+            <li>Contacto y seguimiento comercial con cartera de clientes mediante canales digitales.</li>
+            <li>Administración de ventas en línea, coordinando procesos de cobro y atención postventa.</li>
+            <li>Implementación de herramientas de IA para automatizar flujos de comunicación y reportes comerciales.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-org">Banco del Bajío (BanBajío)</div>
+              <div class="exp-role">Cajero Ejecutivo</div>
+            </div>
+            <div class="exp-period">Jul — Oct 2025</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Gestión de operaciones financieras diarias de alto volumen con índice de error menor al 0.01%.</li>
+            <li>Asesoría a clientes en productos bancarios, impulsando apertura de nuevas cuentas y servicios digitales.</li>
+            <li>Aplicación de herramientas de IA para optimizar tiempos de respuesta en atención al cliente.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-org">Citicinemas del Valle</div>
+              <div class="exp-role">Encargado de Almacén</div>
+            </div>
+            <div class="exp-period">2024 — 2025</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Supervisión de control de inventarios y abastecimiento en múltiples áreas del complejo.</li>
+            <li>Coordinación de personal en recepción, clasificación y registro de mercancías.</li>
+            <li>Conciliaciones de inventario mensuales y control de costos con área administrativa.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-org">Secretaría de Hacienda y Crédito Público</div>
+              <div class="exp-role">Prácticas Profesionales — Atención al Contribuyente</div>
+            </div>
+            <div class="exp-period">2023 — 2024</div>
+          </div>
+          <ul class="exp-bullets">
+            <li>Atención a contribuyentes resolviendo trámites fiscales y orientando sobre procedimientos tributarios.</li>
+            <li>Manejo de sistemas gubernamentales para registro y validación de datos fiscales.</li>
+            <li>Gestión de documentación con precisión y confidencialidad de información ciudadana.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Habilidades Técnicas</div>
+        <div class="skill-group">
+          <div class="skill-group-title">Inteligencia Artificial</div>
+          <div class="skill-tag-list">
+            <span class="skill-tag highlight">Claude (Anthropic)</span>
+            <span class="skill-tag highlight">ChatGPT</span>
+            <span class="skill-tag highlight">Automatización de procesos</span>
+            <span class="skill-tag highlight">Prompt Engineering</span>
+            <span class="skill-tag highlight">Análisis con IA</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">Administrativas y Financieras</div>
+          <div class="skill-tag-list">
+            <span class="skill-tag">Excel Avanzado</span>
+            <span class="skill-tag">Word</span>
+            <span class="skill-tag">Outlook</span>
+            <span class="skill-tag">CRM</span>
+            <span class="skill-tag">Ventas en línea</span>
+            <span class="skill-tag">Plataformas SAT</span>
+            <span class="skill-tag">Sistemas bancarios</span>
+            <span class="skill-tag">Control de inventarios</span>
+            <span class="skill-tag">Conciliaciones</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLUMNA DERECHA -->
+    <div class="col-right">
+
+      <div class="right-section">
+        <div class="right-section-title">Educación</div>
+        <div class="edu-item">
+          <div class="edu-inst">Universidad Autónoma de Sinaloa</div>
+          <div class="edu-degree">Lic. en Administración de Empresas</div>
+          <div class="edu-period">2019 — 2024 · Culiacán</div>
+          <div class="edu-extra">Diplomado en Mercadotecnia y Educación Financiera</div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="right-section-title">Competencias Clave</div>
+        <div class="badge-list">
+          <div class="badge">Operaciones financieras<span>Alto volumen y precisión</span></div>
+          <div class="badge">Gestión de CRM<span>Ventas y seguimiento digital</span></div>
+          <div class="badge">Atención al cliente<span>Entornos de alta demanda</span></div>
+          <div class="badge">Automatización con IA<span>Procesos administrativos</span></div>
+          <div class="badge">Gestión documental<span>Información confidencial</span></div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="right-section-title">Valores Profesionales</div>
+        <div class="valor-list">
+          <div class="valor-item">Ética y discreción</div>
+          <div class="valor-item">Pensamiento analítico</div>
+          <div class="valor-item">Orientación al detalle</div>
+          <div class="valor-item">Mejora continua</div>
+          <div class="valor-item">Trabajo bajo presión</div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="right-section-title">Disponibilidad</div>
+        <div class="badge-list">
+          <div class="badge">Inmediata<span>Salvador Alvarado, Sin.</span></div>
+          <div class="badge">Modalidad<span>Presencial / Remoto</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
