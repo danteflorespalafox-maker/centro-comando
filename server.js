@@ -18,7 +18,8 @@ function initDB() {
 function readDB() {
   initDB();
   const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
-  if (!db.ideas) { db.ideas = []; writeDB(db); }
+  if (!db.ideas)    { db.ideas = []; writeDB(db); }
+  if (!db.economia) { db.economia = { colchon: 0, gastos: [], ingresos: [] }; writeDB(db); }
   return db;
 }
 
@@ -101,6 +102,48 @@ app.delete('/api/ideas/:id/metas/:metaId', (req, res) => {
   const idea = db.ideas.find(i => i.id == req.params.id);
   if (!idea) return res.status(404).json({ error: 'not found' });
   idea.metas = idea.metas.filter(m => m.id != req.params.metaId);
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+// ── API: ECONOMÍA ─────────────────────────────────────────
+app.get('/api/economia', (req, res) => {
+  res.json(readDB().economia);
+});
+
+app.put('/api/economia/colchon', (req, res) => {
+  const db = readDB();
+  db.economia.colchon = req.body.colchon;
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+app.post('/api/economia/gastos', (req, res) => {
+  const db = readDB();
+  const gasto = { id: Date.now(), descripcion: req.body.descripcion, monto: req.body.monto, categoria: req.body.categoria || 'otro', tipo: req.body.tipo || 'variable', fecha: req.body.fecha || new Date().toISOString().slice(0,10) };
+  db.economia.gastos.push(gasto);
+  writeDB(db);
+  res.json(gasto);
+});
+
+app.delete('/api/economia/gastos/:id', (req, res) => {
+  const db = readDB();
+  db.economia.gastos = db.economia.gastos.filter(g => g.id != req.params.id);
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+app.post('/api/economia/ingresos', (req, res) => {
+  const db = readDB();
+  const ingreso = { id: Date.now(), descripcion: req.body.descripcion, monto: req.body.monto, fecha: req.body.fecha || new Date().toISOString().slice(0,10) };
+  db.economia.ingresos.push(ingreso);
+  writeDB(db);
+  res.json(ingreso);
+});
+
+app.delete('/api/economia/ingresos/:id', (req, res) => {
+  const db = readDB();
+  db.economia.ingresos = db.economia.ingresos.filter(i => i.id != req.params.id);
   writeDB(db);
   res.json({ ok: true });
 });
