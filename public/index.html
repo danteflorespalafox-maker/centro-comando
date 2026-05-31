@@ -23,208 +23,179 @@
     --r: 10px;
   }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  body { background: var(--bg); color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
 
-  /* ENV BADGE */
-  .env-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 20px;
-    border: 1px solid;
-  }
+  .env-badge { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; border: 1px solid; }
   .env-badge.development { color: #7a9e8a; border-color: rgba(122,158,138,0.3); background: rgba(122,158,138,0.08); }
   .env-badge.production  { color: #c8a97e; border-color: rgba(200,169,126,0.3); background: rgba(200,169,126,0.08); }
 
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
-  }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    letter-spacing: -0.3px;
-    color: var(--text);
-  }
+  header { border-bottom: 1px solid var(--border); padding: 20px 32px 18px; display: flex; align-items: center; gap: 14px; position: sticky; top: 0; background: var(--bg); z-index: 10; }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 22px; letter-spacing: -0.3px; color: var(--text); }
   .logo span { color: var(--accent); font-style: italic; }
-  #fecha {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-    margin-left: auto;
-  }
+  #fecha { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.5px; margin-left: auto; }
 
-  main {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    grid-template-rows: auto auto;
-    gap: 1px;
-    background: var(--border);
-    min-height: calc(100vh - 62px);
-  }
+  /* ── LAYOUT ─── */
+  .app { display: grid; grid-template-columns: 1fr 320px; gap: 1px; background: var(--border); min-height: calc(100vh - 62px); }
+  .col-main { background: var(--bg); display: flex; flex-direction: column; }
+  .sidebar { background: var(--bg2); display: flex; flex-direction: column; gap: 1px; }
+  .sidebar > div { background: var(--bg2); padding: 24px; }
 
-  .panel { background: var(--bg); padding: 28px 32px; }
-
-  .panel-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .panel-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
   .panel-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  input[type="text"], textarea {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: var(--r);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 14px;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.15s;
+  input[type="text"], textarea, select {
+    background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r);
+    color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 14px;
+    padding: 10px 14px; outline: none; transition: border-color 0.15s; width: 100%;
   }
-  input[type="text"]:focus, textarea:focus { border-color: var(--accent); }
+  input[type="text"]:focus, textarea:focus, select:focus { border-color: var(--accent); }
   input[type="text"]::placeholder, textarea::placeholder { color: var(--muted); }
+  select { cursor: pointer; }
+  select option { background: var(--bg3); }
 
-  button {
-    background: transparent;
-    border: 1px solid var(--border2);
-    border-radius: var(--r);
-    color: var(--text);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 13px;
-    padding: 9px 16px;
-    cursor: pointer;
-    transition: background 0.12s, border-color 0.12s;
-    white-space: nowrap;
-  }
+  button { background: transparent; border: 1px solid var(--border2); border-radius: var(--r); color: var(--text); font-family: 'Instrument Sans', sans-serif; font-size: 13px; padding: 9px 16px; cursor: pointer; transition: background 0.12s, border-color 0.12s; white-space: nowrap; }
   button:hover { background: var(--bg3); }
   button.primary { background: var(--accent); border-color: var(--accent); color: #1a140a; font-weight: 600; }
   button.primary:hover { opacity: 0.88; }
-  button.danger-btn { background: transparent; border: none; color: var(--muted); padding: 4px 6px; font-size: 12px; }
-  button.danger-btn:hover { color: var(--danger); background: transparent; }
+  button.icon-btn { background: transparent; border: none; color: var(--muted); padding: 4px 7px; font-size: 12px; line-height: 1; border-radius: 6px; }
+  button.icon-btn:hover { color: var(--text); background: var(--bg3); }
+  button.icon-btn.del:hover { color: var(--danger); background: transparent; }
 
-  /* INBOX */
-  #panel-inbox { grid-column: 1; grid-row: 1; }
-  .inbox-input-row { display: flex; gap: 8px; margin-bottom: 20px; }
-  #inbox-input { flex: 1; }
-  .tag-select, .proy-status-sel {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: 6px;
-    color: var(--muted);
-    font-size: 12px;
-    padding: 9px 8px;
-    cursor: pointer;
-    outline: none;
-  }
-  .tag-select:focus { border-color: var(--accent); }
+  /* ── IDEA ACTIVA BANNER ─── */
+  #activa-banner { padding: 20px 32px; border-bottom: 1px solid var(--border); }
+  .activa-empty { color: var(--muted); font-size: 13px; font-style: italic; }
+  .activa-card { display: flex; align-items: flex-start; gap: 16px; background: var(--bg2); border: 1px solid rgba(200,169,126,0.25); border-radius: var(--r); padding: 16px 20px; }
+  .activa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 8px rgba(200,169,126,0.5); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 6px rgba(200,169,126,0.4); } 50% { box-shadow: 0 0 14px rgba(200,169,126,0.8); } }
+  .activa-info { flex: 1; }
+  .activa-nombre { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); line-height: 1.3; }
+  .activa-desc { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .activa-meta { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+  .activa-progress-wrap { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .activa-progress-bar { height: 100%; background: var(--accent2); border-radius: 2px; transition: width 0.4s ease; }
+  .activa-progress-txt { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .activa-dias { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; }
+  .activa-actions { display: flex; gap: 4px; flex-shrink: 0; }
 
-  .inbox-list { display: flex; flex-direction: column; gap: 6px; }
-  .inbox-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 10px 12px; font-size: 14px;
-    animation: fadeIn 0.2s ease;
-  }
-  .inbox-item.procesado { opacity: 0.4; text-decoration: line-through; }
-  .inbox-item .ts { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); white-space: nowrap; margin-top: 2px; }
-  .inbox-item .text { flex: 1; }
-  .inbox-actions { display: flex; gap: 2px; }
-  .tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 6px; flex-shrink: 0; }
-  .tag-dot.idea { background: var(--accent); }
-  .tag-dot.tarea { background: var(--accent2); }
-  .tag-dot.nota { background: var(--accent3); }
+  /* ── GATE MODAL ─── */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: 14px; padding: 28px; width: 420px; max-width: 92vw; }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text); margin-bottom: 6px; }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .modal-idea-nombre { color: var(--accent); font-weight: 600; }
+  .modal-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .modal-opt { display: flex; align-items: center; gap: 12px; background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; padding: 12px 14px; cursor: pointer; transition: border-color 0.15s; }
+  .modal-opt:hover { border-color: var(--border2); }
+  .modal-opt.selected { border-color: var(--accent); }
+  .modal-opt-icon { font-size: 18px; width: 24px; text-align: center; flex-shrink: 0; }
+  .modal-opt-text { flex: 1; }
+  .modal-opt-label { font-size: 14px; font-weight: 500; }
+  .modal-opt-desc { font-size: 12px; color: var(--muted); }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
 
-  /* PRIORIDADES */
-  #panel-prioridades { grid-column: 1; grid-row: 2; border-top: 1px solid var(--border); }
-  .prio-slots { display: flex; flex-direction: column; gap: 8px; }
-  .prio-slot {
-    display: flex; align-items: center; gap: 12px;
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: var(--r); padding: 12px 14px; transition: border-color 0.15s;
-  }
-  .prio-slot:focus-within { border-color: var(--border2); }
-  .prio-num { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--border2); width: 20px; text-align: center; flex-shrink: 0; }
-  .prio-input { flex: 1; background: transparent; border: none; color: var(--text); font-size: 14px; font-family: 'Instrument Sans', sans-serif; padding: 0; }
-  .prio-input:focus { outline: none; }
-  .prio-input::placeholder { color: var(--muted); }
-  .prio-check {
-    width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--border2);
-    background: transparent; cursor: pointer; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.15s, border-color 0.15s; padding: 0;
-  }
-  .prio-check.done { background: var(--accent2); border-color: var(--accent2); }
-  .prio-check.done::after { content: '✓'; font-size: 10px; color: #0a1a12; }
-  .prio-slot.done .prio-input { text-decoration: line-through; color: var(--muted); }
+  /* ── CAPTURA ─── */
+  #capture-section { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+  .capture-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .capture-row input { flex: 1; }
+  #capture-desc { resize: none; height: 56px; font-size: 13px; }
 
-  /* SIDEBAR */
-  .sidebar { grid-column: 2; grid-row: 1 / 3; background: var(--bg2); display: flex; flex-direction: column; gap: 1px; }
-  .sidebar > div { background: var(--bg2); padding: 24px; }
+  /* ── LISTA ─── */
+  #ideas-section { padding: 24px 32px; flex: 1; }
+  .estado-group { margin-bottom: 28px; }
+  .estado-header { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .estado-header::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .estado-count { background: var(--bg3); border-radius: 20px; padding: 1px 7px; font-size: 10px; color: var(--muted); }
 
-  .proyecto-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .proyecto-item:last-child { border-bottom: none; }
-  .proyecto-nombre { flex: 1; }
-  .proy-status { font-family: 'DM Mono', monospace; font-size: 10px; padding: 2px 7px; border-radius: 20px; }
-  .proy-status.activo { background: rgba(122,158,138,0.15); color: var(--accent2); }
-  .proy-status.pausa  { background: rgba(155,127,181,0.15); color: var(--accent3); }
-  .proy-status.idea   { background: rgba(200,169,126,0.15); color: var(--accent); }
+  .idea-card { display: flex; align-items: flex-start; gap: 12px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 6px; transition: border-color 0.15s; animation: fadeIn 0.2s ease; cursor: pointer; }
+  .idea-card:hover { border-color: var(--border2); }
+  .idea-card.archivada { opacity: 0.45; }
+  .estado-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .estado-dot.incubando { background: var(--accent3); }
+  .estado-dot.activa    { background: var(--accent); box-shadow: 0 0 6px rgba(200,169,126,0.4); }
+  .estado-dot.archivada { background: var(--muted); }
+  .idea-body { flex: 1; min-width: 0; }
+  .idea-nombre { font-size: 14px; font-weight: 500; }
+  .idea-desc   { font-size: 12px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .idea-ts     { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 4px; }
+  .idea-actions { display: flex; gap: 2px; align-items: flex-start; flex-shrink: 0; }
+  .empty { color: var(--muted); font-size: 13px; font-style: italic; padding: 8px 0; }
 
-  .add-proy-row { display: flex; gap: 6px; margin-top: 12px; }
-  .add-proy-row input { flex: 1; font-size: 13px; padding: 7px 10px; }
-  .add-proy-row select { background: var(--bg3); border: 1px solid var(--border2); border-radius: 8px; color: var(--muted); font-size: 12px; padding: 7px 6px; cursor: pointer; outline: none; }
+  /* ── DRAWER FICHA ─── */
+  .drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; }
+  .drawer-overlay.open { display: block; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 520px; max-width: 100vw; background: var(--bg2); border-left: 1px solid var(--border2); z-index: 101; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s ease; overflow: hidden; }
+  .drawer.open { transform: translateX(0); }
 
-  #reflexion-text {
-    width: 100%; background: var(--bg3); border: 1px solid var(--border2);
-    border-radius: var(--r); color: var(--text);
-    font-family: 'DM Serif Display', serif; font-style: italic;
-    font-size: 14px; line-height: 1.8; padding: 12px 14px;
-    resize: none; height: 130px; outline: none; transition: border-color 0.15s;
-  }
+  .drawer-header { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; }
+  .drawer-header-info { flex: 1; }
+  .drawer-estado { display: inline-flex; align-items: center; gap: 5px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .drawer-nombre { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--text); line-height: 1.25; outline: none; width: 100%; background: transparent; border: none; padding: 0; }
+  .drawer-nombre:focus { color: var(--accent); }
+
+  .drawer-body { flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px; }
+
+  .field-group { display: flex; flex-direction: column; gap: 6px; }
+  .field-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  .field-group textarea { resize: none; height: 80px; font-size: 13px; }
+  .field-group textarea.short { height: 56px; }
+  .field-group input[type="text"] { font-size: 13px; }
+
+  .metas-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .meta-item { display: flex; align-items: center; gap: 10px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; }
+  .meta-check { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--border2); background: transparent; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; padding: 0; }
+  .meta-check.done { background: var(--accent2); border-color: var(--accent2); }
+  .meta-check.done::after { content: '✓'; font-size: 9px; color: #0a1a12; }
+  .meta-texto { flex: 1; font-size: 13px; }
+  .meta-texto.done { text-decoration: line-through; color: var(--muted); }
+  .meta-add-row { display: flex; gap: 8px; }
+  .meta-add-row input { flex: 1; font-size: 13px; padding: 8px 12px; }
+
+  .drawer-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+
+  /* ── SCORES ─── */
+  .score-row { display: flex; flex-direction: column; gap: 10px; }
+  .score-item { display: flex; align-items: center; gap: 12px; }
+  .score-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); width: 90px; flex-shrink: 0; }
+  .score-stars { display: flex; gap: 4px; }
+  .star-btn { background: transparent; border: none; padding: 0; width: 22px; height: 22px; font-size: 16px; cursor: pointer; line-height: 1; color: var(--border2); transition: color 0.1s, transform 0.1s; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .star-btn:hover { transform: scale(1.2); background: transparent; }
+  .star-btn.on { color: var(--accent); }
+  .score-total { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  /* ── RANKING ─── */
+  #ranking-section { padding: 0 32px 32px; }
+  .rank-card { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.15s; }
+  .rank-card:hover { border-color: var(--border2); }
+  .rank-pos { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--border2); width: 24px; text-align: center; flex-shrink: 0; }
+  .rank-pos.gold   { color: #c8a97e; }
+  .rank-pos.silver { color: #8a8a8a; }
+  .rank-pos.bronze { color: #a0704a; }
+  .rank-info { flex: 1; min-width: 0; }
+  .rank-nombre { font-size: 14px; font-weight: 500; }
+  .rank-bars { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
+  .rank-bar-wrap { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 2px; transition: width 0.3s ease; }
+  .rank-bar.potencial   { background: var(--accent); }
+  .rank-bar.factibilidad { background: var(--accent2); }
+  .rank-bar.pasion      { background: var(--accent3); }
+  .rank-score { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text); flex-shrink: 0; }
+  .rank-score span { font-size: 10px; color: var(--muted); }
+
+  /* ── SIDEBAR ─── */
+  #reflexion-text { width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r); color: var(--text); font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; line-height: 1.8; padding: 12px 14px; resize: none; height: 120px; outline: none; transition: border-color 0.15s; }
   #reflexion-text:focus { border-color: var(--accent3); }
-  .reflexion-save { margin-top: 10px; font-size: 12px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .reflexion-save { margin-top: 8px; font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
 
-  .streak-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
-  .streak-day {
-    width: 26px; height: 26px; border-radius: 5px;
-    background: var(--bg3); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted);
-    cursor: pointer; transition: background 0.1s;
-  }
+  .streak-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+  .streak-day { width: 26px; height: 26px; border-radius: 5px; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 9px; color: var(--muted); cursor: pointer; transition: background 0.1s; }
   .streak-day.on { background: rgba(200,169,126,0.2); border-color: var(--accent); color: var(--accent); }
-
-  .empty { color: var(--muted); font-size: 13px; font-style: italic; padding: 12px 0 4px; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 820px) {
-    main { grid-template-columns: 1fr; }
-    .sidebar { grid-column: 1; grid-row: auto; }
+    .app { grid-template-columns: 1fr; }
+    .drawer { width: 100vw; }
   }
 </style>
 </head>
@@ -236,72 +207,148 @@
   <div id="fecha"></div>
 </header>
 
-<main>
-  <div class="panel" id="panel-inbox">
-    <div class="panel-label">inbox mental</div>
-    <div class="inbox-input-row">
-      <input type="text" id="inbox-input" placeholder="Captura un pensamiento, idea o tarea…" autocomplete="off" />
-      <select class="tag-select" id="inbox-tag">
-        <option value="idea">idea</option>
-        <option value="tarea">tarea</option>
-        <option value="nota">nota</option>
-      </select>
-      <button class="primary" onclick="addInboxItem()">+ Agregar</button>
-    </div>
-    <div class="inbox-list" id="inbox-list"></div>
-  </div>
+<div class="app">
+  <div class="col-main">
 
-  <div class="panel" id="panel-prioridades">
-    <div class="panel-label">prioridades del día</div>
-    <div class="prio-slots" id="prio-slots"></div>
+    <div id="activa-banner">
+      <div class="panel-label">idea activa</div>
+      <div id="activa-content"><div class="activa-empty">Sin idea activa — activá una desde la lista.</div></div>
+    </div>
+
+    <div id="capture-section">
+      <div class="panel-label">captura una idea</div>
+      <div class="capture-row">
+        <input type="text" id="capture-nombre" placeholder="Nombre de la idea…" autocomplete="off" />
+        <button class="primary" onclick="captureIdea()">+ Capturar</button>
+      </div>
+      <textarea id="capture-desc" placeholder="Descripción corta (opcional)…"></textarea>
+    </div>
+
+    <div id="ideas-section">
+      <div id="ideas-incubando"></div>
+      <div id="ideas-archivadas"></div>
+    </div>
+
+    <div id="ranking-section"></div>
+
   </div>
 
   <div class="sidebar">
-    <div>
-      <div class="panel-label">proyectos activos</div>
-      <div id="proyectos-list"></div>
-      <div class="add-proy-row">
-        <input type="text" id="proy-input" placeholder="Nuevo proyecto…" />
-        <select id="proy-status-sel">
-          <option value="activo">activo</option>
-          <option value="pausa">pausa</option>
-          <option value="idea">idea</option>
-        </select>
-        <button onclick="addProyecto()" style="padding:7px 12px;font-size:13px;">+</button>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid var(--border)">
+    <div style="border-bottom:1px solid var(--border)">
       <div class="panel-label">reflexión del día</div>
-      <textarea id="reflexion-text" placeholder="¿Qué me llevo de hoy? ¿Qué quiero procesar?"></textarea>
+      <textarea id="reflexion-text" placeholder="¿Qué aprendí hoy sobre mis ideas?"></textarea>
       <div class="reflexion-save" id="reflexion-saved"></div>
     </div>
-
-    <div style="border-top:1px solid var(--border)">
+    <div>
       <div class="panel-label">racha — últimos 14 días</div>
       <div class="streak-row" id="streak-row"></div>
     </div>
   </div>
-</main>
+</div>
+
+<!-- Gate modal -->
+<div class="modal-overlay" id="gate-overlay">
+  <div class="modal">
+    <div class="modal-title">Tenés una idea activa</div>
+    <div class="modal-sub">Antes de cambiar, ¿qué hacés con <span class="modal-idea-nombre" id="gate-nombre"></span>?</div>
+    <div class="modal-options">
+      <div class="modal-opt" id="gate-opt-completar" onclick="selectGateOpt('completar')">
+        <div class="modal-opt-icon">✓</div>
+        <div class="modal-opt-text">
+          <div class="modal-opt-label">La completé</div>
+          <div class="modal-opt-desc">Se archiva como terminada</div>
+        </div>
+      </div>
+      <div class="modal-opt" id="gate-opt-incubar" onclick="selectGateOpt('incubar')">
+        <div class="modal-opt-icon">⏸</div>
+        <div class="modal-opt-text">
+          <div class="modal-opt-label">La pauso por ahora</div>
+          <div class="modal-opt-desc">Vuelve a incubación, la retomás después</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button onclick="closeGate()">Cancelar</button>
+      <button class="primary" onclick="confirmGate()">Continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Drawer ficha -->
+<div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div class="drawer-header-info">
+      <div class="drawer-estado" id="drawer-estado"></div>
+      <input class="drawer-nombre" id="drawer-nombre" type="text" placeholder="Nombre de la idea…" />
+    </div>
+    <button class="icon-btn" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="field-group">
+      <div class="field-label">Descripción</div>
+      <textarea id="field-descripcion" placeholder="¿De qué trata esta idea?"></textarea>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Problema que resuelve</div>
+      <textarea class="short" id="field-problema" placeholder="¿Qué dolor o necesidad atiende?"></textarea>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Mercado objetivo</div>
+      <input type="text" id="field-mercado" placeholder="¿A quién va dirigido?" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Costos estimados</div>
+      <input type="text" id="field-costos" placeholder="Inversión inicial estimada…" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Potencial de ingreso</div>
+      <input type="text" id="field-potencial" placeholder="¿Cuánto podría generar?" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Evaluación</div>
+      <div class="score-row">
+        <div class="score-item">
+          <span class="score-label">Potencial</span>
+          <div class="score-stars" id="stars-potencial"></div>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Factibilidad</span>
+          <div class="score-stars" id="stars-factibilidad"></div>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Pasión</span>
+          <div class="score-stars" id="stars-pasion"></div>
+        </div>
+      </div>
+    </div>
+    <div class="field-group">
+      <div class="field-label">Metas</div>
+      <div class="metas-list" id="metas-list"></div>
+      <div class="meta-add-row">
+        <input type="text" id="meta-input" placeholder="Nueva meta…" />
+        <button onclick="addMeta()">+ Agregar</button>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <button id="drawer-activar-btn" onclick="activarDesdeDrawer()"></button>
+    <button class="primary" onclick="saveDrawer()">Guardar</button>
+  </div>
+</div>
 
 <script>
-// ── UTILS ──────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 
 function hoy() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-function fmtHora(ts) {
+function fmtFecha(ts) {
   const d = new Date(ts);
-  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 }
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escAttr(s) {
-  return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
 async function api(method, path, body) {
   const res = await fetch(path, {
@@ -315,137 +362,344 @@ async function api(method, path, body) {
 // ── FECHA + ENV ───────────────────────────────────────────
 const DIAS  = ['dom','lun','mar','mié','jue','vie','sáb'];
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
-(async function() {
+(async () => {
   const d = new Date();
   $('fecha').textContent = `${DIAS[d.getDay()]} ${d.getDate()} ${MESES[d.getMonth()]} ${d.getFullYear()}`;
-
   const env = await api('GET', '/env');
   const badge = $('env-badge');
   badge.textContent = env.env;
   badge.className = `env-badge ${env.env}`;
 })();
 
-// ── INBOX ─────────────────────────────────────────────────
-let inbox = [];
+// ── IDEAS ─────────────────────────────────────────────────
+let ideas = [];
 
-async function loadInbox() {
-  inbox = await api('GET', '/api/inbox');
-  renderInbox();
+async function loadIdeas() {
+  ideas = await api('GET', '/api/ideas');
+  renderAll();
 }
 
-function renderInbox() {
-  const list = $('inbox-list');
-  if (!inbox.length) { list.innerHTML = '<div class="empty">Sin capturas aún.</div>'; return; }
-  list.innerHTML = inbox.map(item => `
-    <div class="inbox-item ${item.procesado ? 'procesado' : ''}">
-      <div class="tag-dot ${item.tag}"></div>
-      <div class="text">${escHtml(item.text)}</div>
-      <span class="ts">${fmtHora(item.ts)}</span>
-      <div class="inbox-actions">
-        ${!item.procesado ? `<button class="danger-btn" onclick="procesarInbox(${item.id})">✓</button>` : ''}
-        <button class="danger-btn" onclick="eliminarInbox(${item.id})">✕</button>
+function renderAll() {
+  renderActiva();
+  renderLista();
+  renderRanking();
+}
+
+function renderActiva() {
+  const activa = ideas.find(i => i.estado === 'activa');
+  const el = $('activa-content');
+  if (!activa) {
+    el.innerHTML = '<div class="activa-empty">Sin idea activa — activá una desde la lista.</div>';
+    return;
+  }
+  const metas = activa.metas || [];
+  const metasDone = metas.filter(m => m.done).length;
+  const pct = metas.length ? Math.round((metasDone / metas.length) * 100) : 0;
+  const dias = activa.activadoEn ? Math.floor((Date.now() - activa.activadoEn) / 86400000) : 0;
+  const diasTxt = dias === 0 ? 'hoy' : dias === 1 ? '1 día en foco' : `${dias} días en foco`;
+
+  el.innerHTML = `
+    <div class="activa-card">
+      <div class="activa-dot"></div>
+      <div class="activa-info">
+        <div class="activa-nombre">${escHtml(activa.nombre)}</div>
+        ${activa.descripcion ? `<div class="activa-desc">${escHtml(activa.descripcion)}</div>` : ''}
+        <div class="activa-meta">
+          <div class="activa-progress-wrap">
+            <div class="activa-progress-bar" style="width:${pct}%"></div>
+          </div>
+          <span class="activa-progress-txt">${metasDone}/${metas.length} metas</span>
+          <span class="activa-dias">${diasTxt}</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+      <div class="activa-actions">
+        <button class="icon-btn" onclick="openDrawer(${activa.id})">Ver ficha</button>
+        <button class="icon-btn" onclick="cambiarEstado(${activa.id},'archivada')">✓ Completar</button>
+        <button class="icon-btn" onclick="cambiarEstado(${activa.id},'incubando')">↓ Incubar</button>
+      </div>
+    </div>`;
 }
 
-async function addInboxItem() {
-  const input = $('inbox-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const item = await api('POST', '/api/inbox', { text, tag: $('inbox-tag').value });
-  inbox.unshift(item);
-  input.value = '';
-  renderInbox();
+function renderLista() {
+  renderGrupo('ideas-incubando', 'en incubación', ideas.filter(i => i.estado === 'incubando'));
+  renderGrupo('ideas-archivadas', 'archivadas',   ideas.filter(i => i.estado === 'archivada'));
 }
 
-async function procesarInbox(id) {
-  await api('PATCH', `/api/inbox/${id}`, { procesado: true });
-  const item = inbox.find(i => i.id === id);
-  if (item) item.procesado = true;
-  renderInbox();
+function renderGrupo(containerId, label, lista) {
+  const el = $(containerId);
+  if (!lista.length) { el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="estado-group">
+      <div class="estado-header">${label}<span class="estado-count">${lista.length}</span></div>
+      ${lista.map(idea => `
+        <div class="idea-card ${idea.estado}" onclick="openDrawer(${idea.id})">
+          <div class="estado-dot ${idea.estado}"></div>
+          <div class="idea-body">
+            <div class="idea-nombre">${escHtml(idea.nombre)}</div>
+            ${idea.descripcion ? `<div class="idea-desc">${escHtml(idea.descripcion)}</div>` : ''}
+            <div class="idea-ts">${fmtFecha(idea.ts)}</div>
+          </div>
+          <div class="idea-actions" onclick="event.stopPropagation()">
+            ${idea.estado === 'incubando' ? `<button class="icon-btn" onclick="activar(${idea.id})">▶</button>` : ''}
+            ${idea.estado === 'archivada' ? `<button class="icon-btn" onclick="cambiarEstado(${idea.id},'incubando')">↺</button>` : ''}
+            <button class="icon-btn del" onclick="eliminarIdea(${idea.id})">✕</button>
+          </div>
+        </div>`).join('')}
+    </div>`;
 }
 
-async function eliminarInbox(id) {
-  await api('DELETE', `/api/inbox/${id}`);
-  inbox = inbox.filter(i => i.id !== id);
-  renderInbox();
-}
-
-$('inbox-input').addEventListener('keydown', e => { if (e.key === 'Enter') addInboxItem(); });
-
-// ── PRIORIDADES ───────────────────────────────────────────
-let prios = [];
-const HOY = hoy();
-
-async function loadPrios() {
-  prios = await api('GET', `/api/prioridades/${HOY}`);
-  renderPrios();
-}
-
-function renderPrios() {
-  $('prio-slots').innerHTML = prios.map((p, i) => `
-    <div class="prio-slot ${p.done ? 'done' : ''}">
-      <span class="prio-num">${i+1}</span>
-      <input class="prio-input" type="text" value="${escAttr(p.text)}" placeholder="Prioridad ${i+1}…"
-        oninput="updatePrioText(${i}, this.value)" />
-      <button class="prio-check ${p.done ? 'done' : ''}" onclick="togglePrio(${i})"></button>
-    </div>
-  `).join('');
-}
-
-let prioTimer;
-function updatePrioText(i, val) {
-  prios[i].text = val;
-  clearTimeout(prioTimer);
-  prioTimer = setTimeout(() => api('PUT', `/api/prioridades/${HOY}`, prios), 600);
-}
-
-async function togglePrio(i) {
-  prios[i].done = !prios[i].done;
-  await api('PUT', `/api/prioridades/${HOY}`, prios);
-  renderPrios();
-}
-
-// ── PROYECTOS ─────────────────────────────────────────────
-let proyectos = [];
-
-async function loadProyectos() {
-  proyectos = await api('GET', '/api/proyectos');
-  renderProyectos();
-}
-
-function renderProyectos() {
-  const list = $('proyectos-list');
-  if (!proyectos.length) { list.innerHTML = '<div class="empty">Sin proyectos registrados.</div>'; return; }
-  list.innerHTML = proyectos.map(p => `
-    <div class="proyecto-item">
-      <span class="proyecto-nombre">${escHtml(p.nombre)}</span>
-      <span class="proy-status ${p.status}">${p.status}</span>
-      <button class="danger-btn" onclick="eliminarProy(${p.id})">✕</button>
-    </div>
-  `).join('');
-}
-
-async function addProyecto() {
-  const input = $('proy-input');
-  const nombre = input.value.trim();
+async function captureIdea() {
+  const nombre = $('capture-nombre').value.trim();
   if (!nombre) return;
-  const item = await api('POST', '/api/proyectos', { nombre, status: $('proy-status-sel').value });
-  proyectos.push(item);
+  const idea = await api('POST', '/api/ideas', { nombre, descripcion: $('capture-desc').value.trim() });
+  ideas.unshift(idea);
+  $('capture-nombre').value = '';
+  $('capture-desc').value = '';
+  renderAll();
+}
+
+let gateTargetId = null;
+let gateOpcion = null;
+
+async function activar(id) {
+  const yaActiva = ideas.find(i => i.estado === 'activa');
+  if (yaActiva) {
+    gateTargetId = id;
+    gateOpcion = null;
+    $('gate-nombre').textContent = yaActiva.nombre;
+    $('gate-opt-completar').classList.remove('selected');
+    $('gate-opt-incubar').classList.remove('selected');
+    $('gate-overlay').classList.add('open');
+    return;
+  }
+  await _activar(id);
+}
+
+function selectGateOpt(opcion) {
+  gateOpcion = opcion;
+  $('gate-opt-completar').classList.toggle('selected', opcion === 'completar');
+  $('gate-opt-incubar').classList.toggle('selected', opcion === 'incubar');
+}
+
+async function confirmGate() {
+  if (!gateOpcion || !gateTargetId) return;
+  const yaActiva = ideas.find(i => i.estado === 'activa');
+  if (yaActiva) {
+    const nuevoEstado = gateOpcion === 'completar' ? 'archivada' : 'incubando';
+    await api('PATCH', `/api/ideas/${yaActiva.id}`, { estado: nuevoEstado });
+    ideas.find(i => i.id === yaActiva.id).estado = nuevoEstado;
+  }
+  await _activar(gateTargetId);
+  closeGate();
+}
+
+function closeGate() {
+  $('gate-overlay').classList.remove('open');
+  gateTargetId = null;
+  gateOpcion = null;
+}
+
+async function _activar(id) {
+  const activadoEn = Date.now();
+  await api('PATCH', `/api/ideas/${id}`, { estado: 'activa', activadoEn });
+  const idea = ideas.find(i => i.id === id);
+  idea.estado = 'activa';
+  idea.activadoEn = activadoEn;
+  renderAll();
+}
+
+async function cambiarEstado(id, estado) {
+  await api('PATCH', `/api/ideas/${id}`, { estado });
+  ideas.find(i => i.id === id).estado = estado;
+  renderAll();
+}
+
+async function eliminarIdea(id) {
+  await api('DELETE', `/api/ideas/${id}`);
+  ideas = ideas.filter(i => i.id !== id);
+  renderAll();
+}
+
+$('capture-nombre').addEventListener('keydown', e => { if (e.key === 'Enter') captureIdea(); });
+
+// ── DRAWER ────────────────────────────────────────────────
+let drawerIdeaId = null;
+
+function openDrawer(id) {
+  const idea = ideas.find(i => i.id === id);
+  if (!idea) return;
+  drawerIdeaId = id;
+
+  const dotColor = { incubando: 'var(--accent3)', activa: 'var(--accent)', archivada: 'var(--muted)' };
+  $('drawer-estado').innerHTML = `<span style="width:6px;height:6px;border-radius:50%;background:${dotColor[idea.estado]};display:inline-block"></span>${idea.estado}`;
+  $('drawer-nombre').value       = idea.nombre        || '';
+  $('field-descripcion').value   = idea.descripcion   || '';
+  $('field-problema').value      = idea.problema      || '';
+  $('field-mercado').value       = idea.mercado       || '';
+  $('field-costos').value        = idea.costos        || '';
+  $('field-potencial').value     = idea.potencial     || '';
+
+  renderMetas(idea.metas || []);
+  renderStars();
+
+  const btn = $('drawer-activar-btn');
+  if (idea.estado === 'incubando') {
+    btn.textContent = '▶ Activar';
+    btn.style.display = '';
+  } else if (idea.estado === 'activa') {
+    btn.textContent = '↓ Incubar';
+    btn.style.display = '';
+  } else {
+    btn.style.display = 'none';
+  }
+
+  $('overlay').classList.add('open');
+  $('drawer').classList.add('open');
+}
+
+function closeDrawer() {
+  $('overlay').classList.remove('open');
+  $('drawer').classList.remove('open');
+  drawerIdeaId = null;
+}
+
+async function saveDrawer() {
+  if (!drawerIdeaId) return;
+  const patch = {
+    nombre:      $('drawer-nombre').value.trim(),
+    descripcion: $('field-descripcion').value.trim(),
+    problema:    $('field-problema').value.trim(),
+    mercado:     $('field-mercado').value.trim(),
+    costos:      $('field-costos').value.trim(),
+    potencial:   $('field-potencial').value.trim(),
+  };
+  const updated = await api('PATCH', `/api/ideas/${drawerIdeaId}`, patch);
+  const idx = ideas.findIndex(i => i.id === drawerIdeaId);
+  if (idx !== -1) ideas[idx] = { ...ideas[idx], ...patch };
+  renderAll();
+  closeDrawer();
+}
+
+async function activarDesdeDrawer() {
+  if (!drawerIdeaId) return;
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  if (idea.estado === 'incubando') await activar(drawerIdeaId);
+  else if (idea.estado === 'activa') await cambiarEstado(drawerIdeaId, 'incubando');
+  closeDrawer();
+}
+
+// ── RANKING ───────────────────────────────────────────────
+function totalScore(idea) {
+  const s = idea.scores || {};
+  return (s.potencial || 0) + (s.factibilidad || 0) + (s.pasion || 0);
+}
+
+function renderRanking() {
+  const evaluadas = ideas
+    .filter(i => i.estado !== 'archivada' && totalScore(i) > 0)
+    .sort((a, b) => totalScore(b) - totalScore(a));
+
+  const el = $('ranking-section');
+  if (!evaluadas.length) { el.innerHTML = ''; return; }
+
+  const posClass = ['gold', 'silver', 'bronze'];
+  el.innerHTML = `
+    <div class="estado-group">
+      <div class="estado-header">ranking<span class="estado-count">${evaluadas.length}</span></div>
+      ${evaluadas.map((idea, i) => {
+        const s = idea.scores || {};
+        const total = totalScore(idea);
+        return `
+          <div class="rank-card" onclick="openDrawer(${idea.id})">
+            <div class="rank-pos ${posClass[i] || ''}">${i + 1}</div>
+            <div class="rank-info">
+              <div class="rank-nombre">${escHtml(idea.nombre)}</div>
+              <div class="rank-bars">
+                <div class="rank-bar-wrap" title="Potencial">
+                  <div class="rank-bar potencial" style="width:${((s.potencial||0)/5)*100}%"></div>
+                </div>
+                <div class="rank-bar-wrap" title="Factibilidad">
+                  <div class="rank-bar factibilidad" style="width:${((s.factibilidad||0)/5)*100}%"></div>
+                </div>
+                <div class="rank-bar-wrap" title="Pasión">
+                  <div class="rank-bar pasion" style="width:${((s.pasion||0)/5)*100}%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rank-score">${total}<span>/15</span></div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ── SCORES ─────────────────────────────────────────────────
+const SCORE_DIMS = ['potencial', 'factibilidad', 'pasion'];
+
+function renderStars() {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  const scores = (idea && idea.scores) || {};
+  SCORE_DIMS.forEach(dim => {
+    const val = scores[dim] || 0;
+    $(`stars-${dim}`).innerHTML = [1,2,3,4,5].map(n =>
+      `<button class="star-btn ${n <= val ? 'on' : ''}" onclick="setStar('${dim}', ${n})">★</button>`
+    ).join('');
+  });
+}
+
+async function setStar(dim, val) {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  if (!idea) return;
+  if (!idea.scores) idea.scores = {};
+  idea.scores[dim] = idea.scores[dim] === val ? 0 : val;
+  await api('PATCH', `/api/ideas/${drawerIdeaId}`, { scores: idea.scores });
+  renderStars();
+  renderRanking();
+}
+
+// ── METAS ─────────────────────────────────────────────────
+function renderMetas(metas) {
+  $('metas-list').innerHTML = metas.length
+    ? metas.map(m => `
+        <div class="meta-item">
+          <button class="meta-check ${m.done ? 'done' : ''}" onclick="toggleMeta(${m.id})"></button>
+          <span class="meta-texto ${m.done ? 'done' : ''}">${escHtml(m.texto)}</span>
+          <button class="icon-btn del" onclick="deleteMeta(${m.id})">✕</button>
+        </div>`).join('')
+    : '<div class="empty">Sin metas aún.</div>';
+}
+
+async function addMeta() {
+  const input = $('meta-input');
+  const texto = input.value.trim();
+  if (!texto || !drawerIdeaId) return;
+  const meta = await api('POST', `/api/ideas/${drawerIdeaId}/metas`, { texto });
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  idea.metas.push(meta);
   input.value = '';
-  renderProyectos();
+  renderMetas(idea.metas);
 }
 
-async function eliminarProy(id) {
-  await api('DELETE', `/api/proyectos/${id}`);
-  proyectos = proyectos.filter(p => p.id !== id);
-  renderProyectos();
+async function toggleMeta(metaId) {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  const meta = idea.metas.find(m => m.id === metaId);
+  meta.done = !meta.done;
+  await api('PATCH', `/api/ideas/${drawerIdeaId}/metas/${metaId}`, { done: meta.done });
+  renderMetas(idea.metas);
 }
 
-$('proy-input').addEventListener('keydown', e => { if (e.key === 'Enter') addProyecto(); });
+async function deleteMeta(metaId) {
+  await api('DELETE', `/api/ideas/${drawerIdeaId}/metas/${metaId}`);
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  idea.metas = idea.metas.filter(m => m.id !== metaId);
+  renderMetas(idea.metas);
+}
+
+$('meta-input').addEventListener('keydown', e => { if (e.key === 'Enter') addMeta(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
 // ── REFLEXIÓN ─────────────────────────────────────────────
+const HOY = hoy();
+
 async function loadReflexion() {
   const r = await api('GET', `/api/reflexion/${HOY}`);
   $('reflexion-text').value = r.text || '';
@@ -457,7 +711,8 @@ $('reflexion-text').addEventListener('input', () => {
   $('reflexion-saved').textContent = '';
   reflexTimer = setTimeout(async () => {
     await api('PUT', `/api/reflexion/${HOY}`, { text: $('reflexion-text').value });
-    $('reflexion-saved').textContent = `guardado a las ${fmtHora(Date.now())}`;
+    const d = new Date();
+    $('reflexion-saved').textContent = `guardado ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
   }, 900);
 });
 
@@ -470,7 +725,6 @@ async function loadStreak() {
 }
 
 function renderStreak() {
-  const row = $('streak-row');
   const days = [];
   for (let i = 13; i >= 0; i--) {
     const d = new Date(); d.setDate(d.getDate() - i);
@@ -478,7 +732,7 @@ function renderStreak() {
     const on = streak.includes(key);
     days.push(`<div class="streak-day ${on?'on':''}" onclick="toggleStreak('${key}')">${d.getDate()}</div>`);
   }
-  row.innerHTML = days.join('');
+  $('streak-row').innerHTML = days.join('');
 }
 
 async function toggleStreak(key) {
@@ -489,7 +743,7 @@ async function toggleStreak(key) {
 }
 
 // ── INIT ──────────────────────────────────────────────────
-Promise.all([loadInbox(), loadPrios(), loadProyectos(), loadReflexion(), loadStreak()]);
+Promise.all([loadIdeas(), loadReflexion(), loadStreak()]);
 </script>
 </body>
 </html>

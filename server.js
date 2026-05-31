@@ -10,14 +10,16 @@ const DB_FILE = path.join(__dirname, 'data', `db.${ENV}.json`);
 // ── INIT DB ──────────────────────────────────────────────
 function initDB() {
   if (!fs.existsSync(DB_FILE)) {
-    const empty = { inbox: [], proyectos: [], prioridades: {}, reflexiones: {}, streak: [] };
+    const empty = { ideas: [], prioridades: {}, reflexiones: {}, streak: [] };
     fs.writeFileSync(DB_FILE, JSON.stringify(empty, null, 2));
   }
 }
 
 function readDB() {
   initDB();
-  return JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
+  if (!db.ideas) { db.ideas = []; writeDB(db); }
+  return db;
 }
 
 function writeDB(data) {
@@ -43,31 +45,62 @@ app.post('/api/db', (req, res) => {
   res.json({ ok: true });
 });
 
-// ── API: INBOX ────────────────────────────────────────────
-app.get('/api/inbox', (req, res) => {
-  res.json(readDB().inbox);
+// ── API: IDEAS ────────────────────────────────────────────
+app.get('/api/ideas', (req, res) => {
+  res.json(readDB().ideas);
 });
 
-app.post('/api/inbox', (req, res) => {
+app.post('/api/ideas', (req, res) => {
   const db = readDB();
-  const item = { id: Date.now(), ...req.body, procesado: false, ts: Date.now() };
-  db.inbox.unshift(item);
+  const idea = { id: Date.now(), nombre: req.body.nombre, descripcion: req.body.descripcion || '', estado: 'incubando', metas: [], ts: Date.now() };
+  db.ideas.unshift(idea);
   writeDB(db);
-  res.json(item);
+  res.json(idea);
 });
 
-app.patch('/api/inbox/:id', (req, res) => {
+app.patch('/api/ideas/:id', (req, res) => {
   const db = readDB();
-  const item = db.inbox.find(i => i.id == req.params.id);
-  if (!item) return res.status(404).json({ error: 'not found' });
-  Object.assign(item, req.body);
+  const idea = db.ideas.find(i => i.id == req.params.id);
+  if (!idea) return res.status(404).json({ error: 'not found' });
+  Object.assign(idea, req.body);
   writeDB(db);
-  res.json(item);
+  res.json(idea);
 });
 
-app.delete('/api/inbox/:id', (req, res) => {
+app.delete('/api/ideas/:id', (req, res) => {
   const db = readDB();
-  db.inbox = db.inbox.filter(i => i.id != req.params.id);
+  db.ideas = db.ideas.filter(i => i.id != req.params.id);
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+// ── API: METAS DE UNA IDEA ────────────────────────────────
+app.post('/api/ideas/:id/metas', (req, res) => {
+  const db = readDB();
+  const idea = db.ideas.find(i => i.id == req.params.id);
+  if (!idea) return res.status(404).json({ error: 'not found' });
+  const meta = { id: Date.now(), texto: req.body.texto, done: false };
+  idea.metas.push(meta);
+  writeDB(db);
+  res.json(meta);
+});
+
+app.patch('/api/ideas/:id/metas/:metaId', (req, res) => {
+  const db = readDB();
+  const idea = db.ideas.find(i => i.id == req.params.id);
+  if (!idea) return res.status(404).json({ error: 'not found' });
+  const meta = idea.metas.find(m => m.id == req.params.metaId);
+  if (!meta) return res.status(404).json({ error: 'not found' });
+  Object.assign(meta, req.body);
+  writeDB(db);
+  res.json(meta);
+});
+
+app.delete('/api/ideas/:id/metas/:metaId', (req, res) => {
+  const db = readDB();
+  const idea = db.ideas.find(i => i.id == req.params.id);
+  if (!idea) return res.status(404).json({ error: 'not found' });
+  idea.metas = idea.metas.filter(m => m.id != req.params.metaId);
   writeDB(db);
   res.json({ ok: true });
 });
@@ -82,35 +115,6 @@ app.get('/api/prioridades/:fecha', (req, res) => {
 app.put('/api/prioridades/:fecha', (req, res) => {
   const db = readDB();
   db.prioridades[req.params.fecha] = req.body;
-  writeDB(db);
-  res.json({ ok: true });
-});
-
-// ── API: PROYECTOS ────────────────────────────────────────
-app.get('/api/proyectos', (req, res) => {
-  res.json(readDB().proyectos);
-});
-
-app.post('/api/proyectos', (req, res) => {
-  const db = readDB();
-  const item = { id: Date.now(), ...req.body };
-  db.proyectos.push(item);
-  writeDB(db);
-  res.json(item);
-});
-
-app.patch('/api/proyectos/:id', (req, res) => {
-  const db = readDB();
-  const item = db.proyectos.find(p => p.id == req.params.id);
-  if (!item) return res.status(404).json({ error: 'not found' });
-  Object.assign(item, req.body);
-  writeDB(db);
-  res.json(item);
-});
-
-app.delete('/api/proyectos/:id', (req, res) => {
-  const db = readDB();
-  db.proyectos = db.proyectos.filter(p => p.id != req.params.id);
   writeDB(db);
   res.json({ ok: true });
 });
