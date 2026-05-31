@@ -20,6 +20,7 @@ function readDB() {
   const db = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
   if (!db.ideas)    { db.ideas = []; writeDB(db); }
   if (!db.economia) { db.economia = { colchon: 0, gastos: [], ingresos: [] }; writeDB(db); }
+  if (!db.salud)    { db.salud = {}; writeDB(db); }
   return db;
 }
 
@@ -144,6 +145,24 @@ app.post('/api/economia/ingresos', (req, res) => {
 app.delete('/api/economia/ingresos/:id', (req, res) => {
   const db = readDB();
   db.economia.ingresos = db.economia.ingresos.filter(i => i.id != req.params.id);
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+// ── API: SALUD ────────────────────────────────────────────
+app.get('/api/salud/:fecha', (req, res) => {
+  const db = readDB();
+  const def = {
+    habitos: { lectura: false, sueno: false, agua: false, ejercicio: false, hobbies: false },
+    estadoMental: 0,
+    nota: ''
+  };
+  res.json(db.salud[req.params.fecha] || def);
+});
+
+app.put('/api/salud/:fecha', (req, res) => {
+  const db = readDB();
+  db.salud[req.params.fecha] = req.body;
   writeDB(db);
   res.json({ ok: true });
 });
