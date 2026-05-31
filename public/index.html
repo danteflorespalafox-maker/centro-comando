@@ -130,6 +130,35 @@
 
   .drawer-footer { padding: 16px 28px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
 
+  /* ── SCORES ─── */
+  .score-row { display: flex; flex-direction: column; gap: 10px; }
+  .score-item { display: flex; align-items: center; gap: 12px; }
+  .score-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); width: 90px; flex-shrink: 0; }
+  .score-stars { display: flex; gap: 4px; }
+  .star-btn { background: transparent; border: none; padding: 0; width: 22px; height: 22px; font-size: 16px; cursor: pointer; line-height: 1; color: var(--border2); transition: color 0.1s, transform 0.1s; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .star-btn:hover { transform: scale(1.2); background: transparent; }
+  .star-btn.on { color: var(--accent); }
+  .score-total { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  /* ── RANKING ─── */
+  #ranking-section { padding: 0 32px 32px; }
+  .rank-card { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 6px; cursor: pointer; transition: border-color 0.15s; }
+  .rank-card:hover { border-color: var(--border2); }
+  .rank-pos { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--border2); width: 24px; text-align: center; flex-shrink: 0; }
+  .rank-pos.gold   { color: #c8a97e; }
+  .rank-pos.silver { color: #8a8a8a; }
+  .rank-pos.bronze { color: #a0704a; }
+  .rank-info { flex: 1; min-width: 0; }
+  .rank-nombre { font-size: 14px; font-weight: 500; }
+  .rank-bars { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
+  .rank-bar-wrap { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .rank-bar { height: 100%; border-radius: 2px; transition: width 0.3s ease; }
+  .rank-bar.potencial   { background: var(--accent); }
+  .rank-bar.factibilidad { background: var(--accent2); }
+  .rank-bar.pasion      { background: var(--accent3); }
+  .rank-score { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; color: var(--text); flex-shrink: 0; }
+  .rank-score span { font-size: 10px; color: var(--muted); }
+
   /* ── SIDEBAR ─── */
   #reflexion-text { width: 100%; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--r); color: var(--text); font-family: 'DM Serif Display', serif; font-style: italic; font-size: 14px; line-height: 1.8; padding: 12px 14px; resize: none; height: 120px; outline: none; transition: border-color 0.15s; }
   #reflexion-text:focus { border-color: var(--accent3); }
@@ -177,6 +206,8 @@
       <div id="ideas-archivadas"></div>
     </div>
 
+    <div id="ranking-section"></div>
+
   </div>
 
   <div class="sidebar">
@@ -222,6 +253,23 @@
     <div class="field-group">
       <div class="field-label">Potencial de ingreso</div>
       <input type="text" id="field-potencial" placeholder="¿Cuánto podría generar?" />
+    </div>
+    <div class="field-group">
+      <div class="field-label">Evaluación</div>
+      <div class="score-row">
+        <div class="score-item">
+          <span class="score-label">Potencial</span>
+          <div class="score-stars" id="stars-potencial"></div>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Factibilidad</span>
+          <div class="score-stars" id="stars-factibilidad"></div>
+        </div>
+        <div class="score-item">
+          <span class="score-label">Pasión</span>
+          <div class="score-stars" id="stars-pasion"></div>
+        </div>
+      </div>
     </div>
     <div class="field-group">
       <div class="field-label">Metas</div>
@@ -283,6 +331,7 @@ async function loadIdeas() {
 function renderAll() {
   renderActiva();
   renderLista();
+  renderRanking();
 }
 
 function renderActiva() {
@@ -388,6 +437,7 @@ function openDrawer(id) {
   $('field-potencial').value     = idea.potencial     || '';
 
   renderMetas(idea.metas || []);
+  renderStars();
 
   const btn = $('drawer-activar-btn');
   if (idea.estado === 'incubando') {
@@ -433,6 +483,74 @@ async function activarDesdeDrawer() {
   if (idea.estado === 'incubando') await activar(drawerIdeaId);
   else if (idea.estado === 'activa') await cambiarEstado(drawerIdeaId, 'incubando');
   closeDrawer();
+}
+
+// ── RANKING ───────────────────────────────────────────────
+function totalScore(idea) {
+  const s = idea.scores || {};
+  return (s.potencial || 0) + (s.factibilidad || 0) + (s.pasion || 0);
+}
+
+function renderRanking() {
+  const evaluadas = ideas
+    .filter(i => i.estado !== 'archivada' && totalScore(i) > 0)
+    .sort((a, b) => totalScore(b) - totalScore(a));
+
+  const el = $('ranking-section');
+  if (!evaluadas.length) { el.innerHTML = ''; return; }
+
+  const posClass = ['gold', 'silver', 'bronze'];
+  el.innerHTML = `
+    <div class="estado-group">
+      <div class="estado-header">ranking<span class="estado-count">${evaluadas.length}</span></div>
+      ${evaluadas.map((idea, i) => {
+        const s = idea.scores || {};
+        const total = totalScore(idea);
+        return `
+          <div class="rank-card" onclick="openDrawer(${idea.id})">
+            <div class="rank-pos ${posClass[i] || ''}">${i + 1}</div>
+            <div class="rank-info">
+              <div class="rank-nombre">${escHtml(idea.nombre)}</div>
+              <div class="rank-bars">
+                <div class="rank-bar-wrap" title="Potencial">
+                  <div class="rank-bar potencial" style="width:${((s.potencial||0)/5)*100}%"></div>
+                </div>
+                <div class="rank-bar-wrap" title="Factibilidad">
+                  <div class="rank-bar factibilidad" style="width:${((s.factibilidad||0)/5)*100}%"></div>
+                </div>
+                <div class="rank-bar-wrap" title="Pasión">
+                  <div class="rank-bar pasion" style="width:${((s.pasion||0)/5)*100}%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rank-score">${total}<span>/15</span></div>
+          </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ── SCORES ─────────────────────────────────────────────────
+const SCORE_DIMS = ['potencial', 'factibilidad', 'pasion'];
+
+function renderStars() {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  const scores = (idea && idea.scores) || {};
+  SCORE_DIMS.forEach(dim => {
+    const val = scores[dim] || 0;
+    $(`stars-${dim}`).innerHTML = [1,2,3,4,5].map(n =>
+      `<button class="star-btn ${n <= val ? 'on' : ''}" onclick="setStar('${dim}', ${n})">★</button>`
+    ).join('');
+  });
+}
+
+async function setStar(dim, val) {
+  const idea = ideas.find(i => i.id === drawerIdeaId);
+  if (!idea) return;
+  if (!idea.scores) idea.scores = {};
+  idea.scores[dim] = idea.scores[dim] === val ? 0 : val;
+  await api('PATCH', `/api/ideas/${drawerIdeaId}`, { scores: idea.scores });
+  renderStars();
+  renderRanking();
 }
 
 // ── METAS ─────────────────────────────────────────────────
