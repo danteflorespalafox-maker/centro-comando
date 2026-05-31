@@ -437,6 +437,96 @@
   .mental-bar.vacio { background: var(--border2); }
   .mental-fecha { font-family: 'Share Tech Mono', monospace; font-size: 7px; color: var(--muted); }
 
+  /* ── DASHBOARD ─── */
+  #vista-dashboard { display: flex; flex: 1; flex-direction: column; overflow-y: auto; }
+  #vista-dashboard.hidden { display: none; }
+
+  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); flex: 1; }
+  .dash-cell { background: var(--bg); padding: 28px 32px; display: flex; flex-direction: column; gap: 12px; transition: background 0.15s; }
+  .dash-cell:hover { background: var(--bg2); }
+  .dash-cell.full { grid-column: 1 / -1; }
+  .dash-cell.accent-red { border-left: 3px solid var(--red2); }
+  .dash-cell.accent-violet { border-left: 3px solid var(--violet2); }
+  .dash-cell.accent-silver { border-left: 3px solid var(--silver); }
+  .dash-cell.accent-gold { border-left: 3px solid #c8a97e; }
+
+  .dash-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  .dash-value { font-family: 'Cinzel', serif; font-size: 36px; font-weight: 700; color: var(--title); line-height: 1; }
+  .dash-value.red    { color: var(--red2); text-shadow: 0 0 30px rgba(192,57,43,0.3); }
+  .dash-value.violet { color: var(--violet2); text-shadow: 0 0 30px rgba(139,92,246,0.3); }
+  .dash-value.silver { color: var(--silver); }
+  .dash-value.gold   { color: #c8a97e; text-shadow: 0 0 30px rgba(200,169,126,0.3); }
+  .dash-value.warning { color: #c8a04a; }
+  .dash-sub { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.5px; line-height: 1.5; }
+  .dash-operacion-nombre { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; color: var(--title); line-height: 1.3; }
+
+  .dash-habitos { display: flex; gap: 8px; flex-wrap: wrap; }
+  .dash-habito { display: flex; align-items: center; gap: 5px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); padding: 4px 10px; border: 1px solid var(--border); clip-path: polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px); }
+  .dash-habito.done { color: var(--violet2); border-color: rgba(139,92,246,0.4); background: rgba(91,31,138,0.08); }
+  .dash-habito-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
+  .dash-habito.done .dash-habito-dot { background: var(--violet2); box-shadow: 0 0 4px rgba(139,92,246,0.6); }
+
+  .dash-campo-list { display: flex; flex-direction: column; gap: 5px; }
+  .dash-campo-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); }
+  .dash-campo-item::before { content: '▸'; color: var(--red2); font-size: 9px; flex-shrink: 0; }
+
+  .dash-streak { display: flex; gap: 4px; }
+  .dash-streak-day { width: 20px; height: 20px; border: 1px solid var(--border); background: var(--bg3); display: flex; align-items: center; justify-content: center; font-family: 'Share Tech Mono', monospace; font-size: 8px; color: var(--muted); clip-path: polygon(3px 0%, 100% 0%, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0% 100%, 0% 3px); }
+  .dash-streak-day.on { background: rgba(192,57,43,0.15); border-color: rgba(192,57,43,0.4); color: var(--red2); }
+
+  /* ── CAMPO ─── */
+  #vista-campo { display: none; flex: 1; flex-direction: column; }
+  #vista-campo.visible { display: flex; }
+
+  .campo-form-wrap { padding: 24px 32px; border-bottom: 1px solid var(--border); }
+  .campo-input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+  .campo-input-row input { flex: 1; }
+  .campo-resultado-row { display: flex; gap: 8px; }
+  .campo-resultado-btn {
+    flex: 1; padding: 8px; font-family: 'Share Tech Mono', monospace;
+    font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+    border: 1px solid var(--border2); background: var(--bg3);
+    color: var(--muted); cursor: pointer; transition: all 0.15s;
+    clip-path: polygon(5px 0%, 100% 0%, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0% 100%, 0% 5px);
+  }
+  .campo-resultado-btn:hover { border-color: var(--border2); color: var(--text); background: var(--bg2); }
+  .campo-resultado-btn.sel-pendiente  { border-color: rgba(144,144,170,0.5); color: var(--silver); background: rgba(144,144,170,0.08); }
+  .campo-resultado-btn.sel-positivo   { border-color: rgba(139,92,246,0.5); color: var(--violet2); background: rgba(91,31,138,0.1); }
+  .campo-resultado-btn.sel-negativo   { border-color: rgba(192,57,43,0.4); color: var(--red2); background: rgba(139,26,26,0.08); }
+
+  .campo-lista-wrap { padding: 24px 32px; flex: 1; }
+  .campo-stats { display: flex; gap: 16px; margin-bottom: 20px; }
+  .campo-stat { background: var(--bg2); border: 1px solid var(--border); padding: 12px 16px; flex: 1;
+    clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px); }
+  .campo-stat-num { font-family: 'Cinzel', serif; font-size: 24px; color: var(--title); }
+  .campo-stat-num.pos { color: var(--violet2); }
+  .campo-stat-num.neg { color: var(--red2); }
+  .campo-stat-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+
+  .campo-grupo { margin-bottom: 24px; }
+  .campo-grupo-fecha { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .campo-grupo-fecha::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); }
+
+  .campo-mov {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--bg2); border: 1px solid var(--border);
+    padding: 12px 14px; margin-bottom: 5px;
+    clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
+    animation: fadeIn 0.2s ease; transition: border-color 0.15s;
+  }
+  .campo-mov:hover { border-color: var(--border2); }
+  .resultado-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .resultado-dot.pendiente { background: var(--silver); }
+  .resultado-dot.positivo  { background: var(--violet2); box-shadow: 0 0 6px rgba(139,92,246,0.5); }
+  .resultado-dot.negativo  { background: var(--red2); }
+  .campo-mov-texto { flex: 1; font-size: 13px; color: var(--text); line-height: 1.5; }
+  .campo-mov-actions { display: flex; gap: 4px; flex-shrink: 0; }
+  .resultado-tag { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; padding: 2px 8px; border: 1px solid; cursor: pointer; transition: all 0.15s; text-transform: uppercase; border-radius: 0; background: transparent; }
+  .resultado-tag.pendiente { color: var(--silver); border-color: rgba(144,144,170,0.3); }
+  .resultado-tag.positivo  { color: var(--violet2); border-color: rgba(139,92,246,0.3); }
+  .resultado-tag.negativo  { color: var(--red2); border-color: rgba(192,57,43,0.3); }
+  .resultado-tag:hover { opacity: 0.7; background: transparent; }
+
   /* Notas diario */
   .nota-item { display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); animation: fadeIn 0.2s ease; }
   .nota-item:last-child { border-bottom: none; }
@@ -472,13 +562,26 @@
   <div class="col-main">
 
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('ideas')">Operaciones</button>
+      <button class="nav-tab active" onclick="switchTab('dashboard')">Dashboard</button>
+      <button class="nav-tab" onclick="switchTab('ideas')">Operaciones</button>
       <button class="nav-tab" onclick="switchTab('economia')">Economía</button>
       <button class="nav-tab" onclick="switchTab('salud')">Salud</button>
+      <button class="nav-tab" onclick="switchTab('campo')">Campo</button>
     </div>
 
+    <!-- Dashboard -->
+    <div id="vista-dashboard">
+      <div class="dash-grid">
+        <div class="dash-cell accent-red" id="dash-operacion"></div>
+        <div class="dash-cell accent-gold" id="dash-runway"></div>
+        <div class="dash-cell accent-violet" id="dash-salud"></div>
+        <div class="dash-cell accent-silver" id="dash-campo"></div>
+        <div class="dash-cell full" id="dash-streak-cell"></div>
+      </div>
+    </div><!-- /vista-dashboard -->
+
     <!-- Vista ideas -->
-    <div id="vista-ideas">
+    <div id="vista-ideas" class="hidden">
 
       <div id="activa-banner">
         <div class="sec-label">En operación</div>
@@ -617,6 +720,29 @@
       </div>
 
     </div><!-- /vista-salud -->
+
+    <!-- Vista campo -->
+    <div id="vista-campo">
+
+      <div class="campo-form-wrap">
+        <div class="sec-label">Registrar movimiento</div>
+        <div class="campo-input-row">
+          <input type="text" id="campo-input" placeholder="¿Qué hiciste hoy para conseguir empleo?" autocomplete="off" />
+          <button class="primary" onclick="addMovimiento()">+ Registrar</button>
+        </div>
+        <div class="campo-resultado-row">
+          <button class="campo-resultado-btn sel-pendiente" id="cr-pendiente" onclick="selectResultado('pendiente')">⏳ Pendiente</button>
+          <button class="campo-resultado-btn" id="cr-positivo"  onclick="selectResultado('positivo')">✓ Positivo</button>
+          <button class="campo-resultado-btn" id="cr-negativo"  onclick="selectResultado('negativo')">✕ Negativo</button>
+        </div>
+      </div>
+
+      <div class="campo-lista-wrap">
+        <div class="campo-stats" id="campo-stats"></div>
+        <div id="campo-lista"></div>
+      </div>
+
+    </div><!-- /vista-campo -->
 
   </div>
 
@@ -777,11 +903,101 @@ const ESTADO_LABEL = { incubando: 'EN ANÁLISIS', activa: 'EN OPERACIÓN', archi
 function switchTab(tab) {
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.querySelector(`.nav-tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+  $('vista-dashboard').classList.toggle('hidden', tab !== 'dashboard');
   $('vista-ideas').classList.toggle('hidden', tab !== 'ideas');
   $('vista-economia').classList.toggle('visible', tab === 'economia');
   $('vista-salud').classList.toggle('visible', tab === 'salud');
+  $('vista-campo').classList.toggle('visible', tab === 'campo');
   if (tab === 'economia') loadEconomia();
   if (tab === 'salud') loadSalud();
+  if (tab === 'campo') loadCampo();
+  if (tab === 'dashboard') renderDashboard();
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────
+async function renderDashboard() {
+  // Operación activa
+  const activa = ideas.find(i => i.estado === 'activa');
+  const metas = activa?.metas || [];
+  const metasDone = metas.filter(m => m.done).length;
+  const pct = metas.length ? Math.round((metasDone / metas.length) * 100) : 0;
+  const dias = activa?.activadoEn ? Math.floor((Date.now() - activa.activadoEn) / 86400000) : 0;
+  $('dash-operacion').innerHTML = `
+    <div class="dash-label">En operación</div>
+    ${activa
+      ? `<div class="dash-operacion-nombre">${escHtml(activa.nombre)}</div>
+         <div class="dash-sub">Día ${dias + 1} · ${metasDone}/${metas.length} objetivos · ${pct}%</div>`
+      : `<div class="dash-sub" style="font-style:italic">// Sin operación activa</div>`}`;
+
+  // Runway
+  const ecoData = await api('GET', '/api/economia');
+  const mes = mesActual();
+  const gastosMes = ecoData.gastos.filter(g => g.fecha?.startsWith(mes));
+  const totalGastos = gastosMes.reduce((s, g) => s + Number(g.monto), 0);
+  const colchon = Number(ecoData.colchon) || 0;
+  const mesesRunway = totalGastos ? colchon / totalGastos : null;
+  const runwayColor = !mesesRunway ? 'silver' : mesesRunway <= 1 ? 'red' : mesesRunway <= 3 ? 'warning' : 'gold';
+  $('dash-runway').innerHTML = `
+    <div class="dash-label">Runway</div>
+    <div class="dash-value ${runwayColor}">${mesesRunway ? (mesesRunway < 1 ? '<1' : Math.floor(mesesRunway)) : '—'}</div>
+    <div class="dash-sub">${mesesRunway ? `meses disponibles · ${fmt(colchon)} colchón` : 'Configura tu colchón en Economía'}</div>`;
+
+  // Salud hoy
+  const saludData = await api('GET', `/api/salud/${HOY}`);
+  const habitosDone = Object.values(saludData.habitos).filter(v => v).length;
+  const HABITOS_LOCAL = [
+    { key: 'lectura', nombre: 'Lectura', icon: '📖' },
+    { key: 'sueno',   nombre: 'Sueño',   icon: '🌙' },
+    { key: 'agua',    nombre: 'Agua',     icon: '💧' },
+    { key: 'ejercicio', nombre: 'Ejercicio', icon: '⚡' },
+    { key: 'hobbies', nombre: 'Hobbies', icon: '🎯' },
+  ];
+  const estadoEmoji = { 0:'—', 1:'😔', 2:'😕', 3:'😐', 4:'🙂', 5:'💪' };
+  $('dash-salud').innerHTML = `
+    <div class="dash-label">Salud hoy</div>
+    <div class="dash-value violet">${habitosDone}<span style="font-size:16px;color:var(--muted)">/5</span></div>
+    <div class="dash-habitos">
+      ${HABITOS_LOCAL.map(h => `<div class="dash-habito ${saludData.habitos[h.key] ? 'done' : ''}"><div class="dash-habito-dot"></div>${h.icon} ${h.nombre}</div>`).join('')}
+    </div>
+    <div class="dash-sub">Estado mental: ${estadoEmoji[saludData.estadoMental] || '—'} ${saludData.estadoMental ? ['','Muy mal','Mal','Regular','Bien','Excelente'][saludData.estadoMental] : 'Sin registrar'}</div>`;
+
+  // Campo hoy
+  const campoData = await api('GET', '/api/campo');
+  const movHoy = campoData.filter(m => m.fecha === HOY);
+  const totalPositivos = campoData.filter(m => m.resultado === 'positivo').length;
+  $('dash-campo').innerHTML = `
+    <div class="dash-label">Campo hoy</div>
+    <div class="dash-value silver">${movHoy.length}</div>
+    <div class="dash-sub">${totalPositivos} resultados positivos en total</div>
+    <div class="dash-campo-list">
+      ${movHoy.slice(0,3).map(m => `<div class="dash-campo-item">${escHtml(m.texto)}</div>`).join('') || '<div style="font-family:Share Tech Mono,monospace;font-size:10px;color:var(--muted)">// Sin movimientos hoy</div>'}
+      ${movHoy.length > 3 ? `<div style="font-family:Share Tech Mono,monospace;font-size:9px;color:var(--muted)">+${movHoy.length - 3} más</div>` : ''}
+    </div>`;
+
+  // Streak
+  const streakData = await api('GET', '/api/streak');
+  const streakDays = [];
+  for (let i = 13; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const on = streakData.includes(key);
+    streakDays.push(`<div class="dash-streak-day ${on ? 'on' : ''}">${d.getDate()}</div>`);
+  }
+  const rachaActual = (() => {
+    let count = 0;
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      if (streakData.includes(key)) count++; else break;
+    }
+    return count;
+  })();
+  $('dash-streak-cell').innerHTML = `
+    <div class="dash-label">Racha de actividad</div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <div class="dash-value red">${rachaActual}<span style="font-size:14px;color:var(--muted)"> días</span></div>
+      <div class="dash-streak">${streakDays.join('')}</div>
+    </div>`;
 }
 
 // ── IDEAS ─────────────────────────────────────────────────
@@ -1239,6 +1455,101 @@ async function deleteIngreso(id) {
 $('gasto-desc').addEventListener('keydown',   e => { if (e.key === 'Enter') addGasto(); });
 $('ingreso-desc').addEventListener('keydown', e => { if (e.key === 'Enter') addIngreso(); });
 
+// ── CAMPO ─────────────────────────────────────────────────
+let movimientos = [];
+let campoResultado = 'pendiente';
+
+async function loadCampo() {
+  movimientos = await api('GET', '/api/campo');
+  renderCampo();
+}
+
+function selectResultado(r) {
+  campoResultado = r;
+  ['pendiente','positivo','negativo'].forEach(op => {
+    $(`cr-${op}`).className = `campo-resultado-btn${r === op ? ` sel-${op}` : ''}`;
+  });
+}
+
+async function addMovimiento() {
+  const texto = $('campo-input').value.trim();
+  if (!texto) { toast('Describe qué hiciste', 'danger'); return; }
+  const mov = await api('POST', '/api/campo', { texto, resultado: campoResultado });
+  movimientos.unshift(mov);
+  $('campo-input').value = '';
+  selectResultado('pendiente');
+  renderCampo();
+  toast('Movimiento registrado');
+}
+
+async function cambiarResultado(id, resultado) {
+  await api('PATCH', `/api/campo/${id}`, { resultado });
+  movimientos.find(m => m.id === id).resultado = resultado;
+  renderCampo();
+}
+
+async function eliminarMovimiento(id) {
+  await api('DELETE', `/api/campo/${id}`);
+  movimientos = movimientos.filter(m => m.id !== id);
+  renderCampo();
+  toast('Movimiento eliminado');
+}
+
+function renderCampo() {
+  const total    = movimientos.length;
+  const positivos = movimientos.filter(m => m.resultado === 'positivo').length;
+  const negativos = movimientos.filter(m => m.resultado === 'negativo').length;
+  const pendientes = movimientos.filter(m => m.resultado === 'pendiente').length;
+
+  $('campo-stats').innerHTML = `
+    <div class="campo-stat"><div class="campo-stat-num">${total}</div><div class="campo-stat-label">Total de movimientos</div></div>
+    <div class="campo-stat"><div class="campo-stat-num pos">${positivos}</div><div class="campo-stat-label">Resultados positivos</div></div>
+    <div class="campo-stat"><div class="campo-stat-num neg">${negativos}</div><div class="campo-stat-label">Resultados negativos</div></div>
+    <div class="campo-stat"><div class="campo-stat-num">${pendientes}</div><div class="campo-stat-label">Pendientes</div></div>
+  `;
+
+  if (!total) {
+    $('campo-lista').innerHTML = '<div class="empty">// Sin movimientos registrados — empieza hoy</div>';
+    return;
+  }
+
+  // Agrupar por fecha
+  const grupos = {};
+  movimientos.forEach(m => {
+    if (!grupos[m.fecha]) grupos[m.fecha] = [];
+    grupos[m.fecha].push(m);
+  });
+
+  $('campo-lista').innerHTML = Object.entries(grupos).map(([fecha, items]) => {
+    const [y, mo, d] = fecha.split('-');
+    const diasSemana = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+    const fechaObj = new Date(fecha + 'T12:00:00');
+    const etiqueta = fecha === HOY ? 'HOY' : `${diasSemana[fechaObj.getDay()]} ${d}.${mo}.${y}`;
+    return `
+      <div class="campo-grupo">
+        <div class="campo-grupo-fecha">${etiqueta} <span class="estado-count">${items.length}</span></div>
+        ${items.map(m => `
+          <div class="campo-mov">
+            <div class="resultado-dot ${m.resultado}"></div>
+            <div class="campo-mov-texto">${escHtml(m.texto)}</div>
+            <div class="campo-mov-actions">
+              <button class="resultado-tag ${m.resultado}" onclick="cycleResultado(${m.id})">${m.resultado}</button>
+              <button class="icon-btn del" onclick="eliminarMovimiento(${m.id})">✕</button>
+            </div>
+          </div>`).join('')}
+      </div>`;
+  }).join('');
+}
+
+function cycleResultado(id) {
+  const orden = ['pendiente', 'positivo', 'negativo'];
+  const mov = movimientos.find(m => m.id === id);
+  const siguiente = orden[(orden.indexOf(mov.resultado) + 1) % orden.length];
+  cambiarResultado(id, siguiente);
+}
+
+$('campo-input') && $('campo-input').addEventListener('keydown', e => { if (e.key === 'Enter') addMovimiento(); });
+
 // ── SALUD ─────────────────────────────────────────────────
 const HABITOS = [
   { key: 'lectura',   nombre: 'Lectura',   icon: '📖' },
@@ -1380,7 +1691,7 @@ async function renderHistorial() {
 }
 
 // ── INIT ──────────────────────────────────────────────────
-Promise.all([loadIdeas(), loadReflexion(), loadStreak()]);
+Promise.all([loadIdeas(), loadReflexion(), loadStreak()]).then(() => renderDashboard());
 </script>
 </body>
 </html>
