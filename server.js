@@ -21,6 +21,7 @@ function readDB() {
   if (!db.ideas)    { db.ideas = []; writeDB(db); }
   if (!db.economia) { db.economia = { colchon: 0, gastos: [], ingresos: [] }; writeDB(db); }
   if (!db.salud)    { db.salud = {}; writeDB(db); }
+  if (!db.campo)    { db.campo = []; writeDB(db); }
   return db;
 }
 
@@ -145,6 +146,35 @@ app.post('/api/economia/ingresos', (req, res) => {
 app.delete('/api/economia/ingresos/:id', (req, res) => {
   const db = readDB();
   db.economia.ingresos = db.economia.ingresos.filter(i => i.id != req.params.id);
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+// ── API: CAMPO ────────────────────────────────────────────
+app.get('/api/campo', (req, res) => {
+  res.json(readDB().campo);
+});
+
+app.post('/api/campo', (req, res) => {
+  const db = readDB();
+  const mov = { id: Date.now(), texto: req.body.texto, fecha: req.body.fecha || new Date().toISOString().slice(0,10), resultado: req.body.resultado || 'pendiente' };
+  db.campo.unshift(mov);
+  writeDB(db);
+  res.json(mov);
+});
+
+app.patch('/api/campo/:id', (req, res) => {
+  const db = readDB();
+  const mov = db.campo.find(m => m.id == req.params.id);
+  if (!mov) return res.status(404).json({ error: 'not found' });
+  Object.assign(mov, req.body);
+  writeDB(db);
+  res.json(mov);
+});
+
+app.delete('/api/campo/:id', (req, res) => {
+  const db = readDB();
+  db.campo = db.campo.filter(m => m.id != req.params.id);
   writeDB(db);
   res.json({ ok: true });
 });
