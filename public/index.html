@@ -9,27 +9,29 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg:      #08080c;
-    --bg2:     #0d0d16;
-    --bg3:     #121220;
-    --border:  rgba(192,192,210,0.07);
-    --border2: rgba(192,192,210,0.14);
-    --text:    #b8b8cc;
-    --title:   #e8e8f4;
-    --muted:   #484860;
-    --red:     #8b1a1a;
-    --red2:    #c0392b;
-    --violet:  #5b1f8a;
-    --violet2: #8b5cf6;
-    --silver:  #9090aa;
-    --white:   #f0f0f8;
+    --bg:      #0e0b07;
+    --bg2:     #161009;
+    --bg3:     #201810;
+    --border:  rgba(210,180,140,0.07);
+    --border2: rgba(210,180,140,0.13);
+    --text:    #c0a888;
+    --title:   #e8d8b8;
+    --muted:   #685040;
+    --red:     #7a2020;
+    --red2:    #a84040;
+    --violet:  #503070;
+    --violet2: #8060b0;
+    --silver:  #a09070;
+    --white:   #f4ede0;
+    --amber:   #d4a850;
+    --wine:    #882840;
   }
 
   body {
     background: var(--bg);
     background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(91,31,138,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 100%, rgba(139,26,26,0.05) 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 0%, rgba(180,120,40,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(120,60,30,0.04) 0%, transparent 55%);
     color: var(--text);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
@@ -69,7 +71,7 @@
     z-index: 10;
     background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(192,192,210,0.015) 3px, rgba(192,192,210,0.015) 4px);
   }
-  header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), rgba(139,26,26,0.4), transparent); }
+  header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,80,0.3), rgba(168,64,64,0.2), transparent); }
   .logo { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 700; letter-spacing: 4px; color: var(--white); text-transform: uppercase; }
   .logo .slash { color: var(--red2); font-weight: 400; margin: 0 2px; }
   .logo .letter { color: var(--violet2); }
@@ -83,9 +85,8 @@
   .sidebar > div { background: var(--bg2); padding: 22px; }
 
   /* ── SECTION LABEL ─── */
-  .sec-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-  .sec-label::before { content: '//'; color: var(--red2); font-size: 10px; }
-  .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); }
+  .sec-label { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(180,160,130,0.45); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(200,180,160,0.1), transparent); }
 
   /* ── INPUTS ─── */
   input[type="text"], textarea, select {
@@ -151,7 +152,7 @@
 
   /* ── OPERACIÓN ACTIVA ─── */
   #activa-banner { padding: 24px 32px; border-bottom: 1px solid var(--border); position: relative; }
-  #activa-banner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--red2), var(--violet2)); }
+  #activa-banner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--amber), var(--wine)); }
   .activa-empty { color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; }
   .activa-card {
     display: flex; align-items: flex-start; gap: 18px;
@@ -161,15 +162,15 @@
     clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
     box-shadow: 0 4px 30px rgba(139,26,26,0.1), inset 0 1px 0 rgba(192,57,43,0.1);
   }
-  .activa-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red2); margin-top: 6px; flex-shrink: 0; box-shadow: 0 0 10px rgba(192,57,43,0.8); animation: pulse-red 2s infinite; }
-  @keyframes pulse-red { 0%,100% { box-shadow: 0 0 6px rgba(192,57,43,0.5); transform: scale(1); } 50% { box-shadow: 0 0 20px rgba(192,57,43,1); transform: scale(1.2); } }
+  .activa-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); margin-top: 7px; flex-shrink: 0; box-shadow: 0 0 10px rgba(212,168,80,0.6); animation: pulse-amber 2.5s infinite; }
+  @keyframes pulse-amber { 0%,100% { box-shadow: 0 0 6px rgba(212,168,80,0.4); transform: scale(1); } 50% { box-shadow: 0 0 16px rgba(212,168,80,0.8); transform: scale(1.15); } }
   .activa-info { flex: 1; }
   .activa-status-tag { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--red2); text-transform: uppercase; margin-bottom: 6px; }
   .activa-nombre { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; color: var(--white); line-height: 1.3; }
   .activa-desc { font-size: 12px; color: var(--silver); margin-top: 4px; }
   .activa-meta { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
   .activa-progress-wrap { flex: 1; height: 3px; background: rgba(255,255,255,0.05); position: relative; }
-  .activa-progress-bar { height: 100%; background: linear-gradient(90deg, var(--red2), var(--violet2)); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+  .activa-progress-bar { height: 100%; background: linear-gradient(90deg, var(--wine), var(--amber)); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
   .activa-progress-txt { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); white-space: nowrap; }
   .activa-dias { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); white-space: nowrap; }
   .activa-actions { display: flex; gap: 4px; flex-shrink: 0; }
@@ -346,6 +347,22 @@
   .gasto-monto { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--title); flex-shrink: 0; }
   .gasto-fecha { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--muted); flex-shrink: 0; letter-spacing: 1px; }
 
+  /* Libertad financiera */
+  .libertad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .libertad-card { background: var(--bg3); border: 1px solid var(--border); padding: 16px 18px; clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px); }
+  .libertad-valor { font-family: 'Cinzel', serif; font-size: 22px; color: var(--title); }
+  .libertad-valor.ok  { color: var(--violet2); }
+  .libertad-valor.neg { color: var(--red2); }
+  .libertad-etiqueta { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  .libertad-barra-wrap { margin: 16px 0 8px; height: 8px; background: rgba(255,255,255,0.04); position: relative; }
+  .libertad-barra { height: 100%; background: linear-gradient(90deg, var(--red), var(--violet2)); transition: width 0.8s cubic-bezier(.4,0,.2,1); max-width: 100%; }
+  .libertad-barra-txt { display: flex; justify-content: space-between; font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; color: var(--muted); margin-top: 4px; }
+
+  .fuentes-grid { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .fuente-chip { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--muted); clip-path: polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px); }
+  .fuente-chip.activa { border-color: rgba(139,92,246,0.4); color: var(--violet2); background: rgba(91,31,138,0.08); }
+
   /* Leyenda gráfica */
   .chart-leyenda-item { display: flex; align-items: center; gap: 6px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); }
   .chart-leyenda-dot { width: 10px; height: 3px; flex-shrink: 0; }
@@ -445,30 +462,133 @@
   #vista-dashboard { display: flex; flex: 1; flex-direction: column; overflow-y: auto; }
   #vista-dashboard.hidden { display: none; }
 
-  .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); flex: 1; }
-  .dash-cell { background: var(--bg); padding: 28px 32px; display: flex; flex-direction: column; gap: 12px; transition: background 0.15s; }
-  .dash-cell:hover { background: var(--bg2); }
-  .dash-cell.full { grid-column: 1 / -1; }
-  .dash-cell.accent-red { border-left: 3px solid var(--red2); }
-  .dash-cell.accent-violet { border-left: 3px solid var(--violet2); }
-  .dash-cell.accent-silver { border-left: 3px solid var(--silver); }
-  .dash-cell.accent-gold { border-left: 3px solid #c8a97e; }
+  /* Hero — idea en foco */
+  #dash-hero {
+    padding: 48px 48px 40px;
+    border-bottom: 1px solid rgba(210,180,140,0.06);
+    background: linear-gradient(180deg, rgba(180,120,40,0.07) 0%, transparent 100%);
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .hero-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(212,168,80,0.5);
+    margin-bottom: 14px;
+  }
+  .hero-nombre {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #e8e4f4;
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+  .hero-empty {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: rgba(144,140,160,0.3);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .hero-progress-wrap {
+    height: 2px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .hero-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(136,40,64,0.6), rgba(212,168,80,0.7));
+    transition: width 0.8s ease;
+  }
+  .hero-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: rgba(144,140,160,0.5);
+    display: flex;
+    gap: 20px;
+  }
+  .hero-meta span { font-style: italic; }
 
-  .dash-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
-  .dash-value { font-family: 'Cinzel', serif; font-size: 36px; font-weight: 700; color: var(--title); line-height: 1; }
-  .dash-value.red    { color: var(--red2); text-shadow: 0 0 30px rgba(192,57,43,0.3); }
-  .dash-value.violet { color: var(--violet2); text-shadow: 0 0 30px rgba(139,92,246,0.3); }
-  .dash-value.silver { color: var(--silver); }
-  .dash-value.gold   { color: #c8a97e; text-shadow: 0 0 30px rgba(200,169,126,0.3); }
-  .dash-value.warning { color: #c8a04a; }
-  .dash-sub { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.5px; line-height: 1.5; }
-  .dash-operacion-nombre { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; color: var(--title); line-height: 1.3; }
+  /* Métricas secundarias */
+  .dash-metricas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .dash-metricas > div {
+    padding: 28px 32px;
+    border-right: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dash-metricas > div:last-child { border-right: none; }
 
-  .dash-habitos { display: flex; gap: 8px; flex-wrap: wrap; }
-  .dash-habito { display: flex; align-items: center; gap: 5px; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; color: var(--muted); padding: 4px 10px; border: 1px solid var(--border); clip-path: polygon(4px 0%, 100% 0%, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0% 100%, 0% 4px); }
-  .dash-habito.done { color: var(--violet2); border-color: rgba(139,92,246,0.4); background: rgba(91,31,138,0.08); }
-  .dash-habito-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border2); flex-shrink: 0; }
-  .dash-habito.done .dash-habito-dot { background: var(--violet2); box-shadow: 0 0 4px rgba(139,92,246,0.6); }
+  .dash-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(144,140,160,0.45);
+  }
+  .dash-value {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    font-weight: 400;
+    color: #d0ccde;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .dash-value.red     { color: #b05858; }
+  .dash-value.violet  { color: #9070c8; }
+  .dash-value.silver  { color: #9090a8; }
+  .dash-value.gold    { color: #b89860; }
+  .dash-value.warning { color: #a08040; }
+  .dash-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(144,140,160,0.4);
+    line-height: 1.5;
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  /* Presencia / streak */
+  #dash-streak-cell {
+    padding: 28px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .dash-habitos { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 2px; }
+  .dash-habito {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(144,140,160,0.35);
+    padding: 3px 10px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .dash-habito.done {
+    color: rgba(212,168,80,0.8);
+    border-color: rgba(212,168,80,0.2);
+    background: rgba(180,120,40,0.08);
+  }
+  .dash-habito-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.06); flex-shrink: 0; }
+  .dash-habito.done .dash-habito-dot { background: rgba(212,168,80,0.6); }
 
   .dash-campo-list { display: flex; flex-direction: column; gap: 5px; }
   .dash-campo-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); }
@@ -568,6 +688,75 @@
     .gasto-form { grid-template-columns: 1fr 1fr; }
     .resumen-grid { grid-template-columns: 1fr 1fr; }
   }
+
+  /* ── VISUAL REFRESH — suavizado global ──────────────────── */
+
+  /* Quitar clip-path de todos los elementos interactivos */
+  .idea-card, .rank-card, .campo-mov, .meta-item, .habito-card,
+  .modal-opt, .campo-stat, .resumen-card, .libertad-card,
+  .gasto-item, .hist-dia, .dash-cell, .fuente-chip,
+  .campo-resultado-btn, .guerra-accion, .racha-campo-day,
+  .dash-streak-day, .streak-day, .estado-btn, .activa-card,
+  .runway-card, .env-badge, .toast {
+    clip-path: none !important;
+  }
+
+  /* Bordes redondeados consistentes */
+  .idea-card, .rank-card, .campo-mov, .meta-item,
+  .campo-stat, .resumen-card, .libertad-card, .gasto-item { border-radius: 12px; }
+  .habito-card, .modal-opt, .dash-cell { border-radius: 10px; }
+  .activa-card, .runway-card { border-radius: 14px; }
+  .estado-btn, .campo-resultado-btn { border-radius: 8px; }
+  .streak-day, .dash-streak-day, .racha-campo-day { border-radius: 6px; }
+  .hist-dia { border-radius: 8px; }
+  .fuente-chip { border-radius: 20px; }
+  .env-badge { border-radius: 20px; }
+  .toast { border-radius: 10px; }
+  .guerra-accion { border-radius: 6px; }
+
+  /* Inputs y botones */
+  input[type="text"], textarea, select { border-radius: 8px !important; }
+  button { border-radius: 8px; }
+  button.icon-btn { border-radius: 6px; }
+
+  /* Modal */
+  .modal { clip-path: none !important; border-radius: 16px; }
+
+  /* Drawer */
+  .drawer { border-radius: 16px 0 0 16px; }
+
+  /* Más espacio en secciones */
+  .salud-section, .eco-section, .campo-form-wrap, .campo-lista-wrap,
+  #activa-banner, #capture-section, #ideas-section, #ranking-section { padding-left: 36px; padding-right: 36px; }
+  .sidebar > div { padding: 28px; }
+  .drawer-body { gap: 24px; }
+  .drawer-header { padding: 28px 32px 22px; }
+  .drawer-footer { padding: 18px 32px; }
+
+  /* Tipografía más cálida */
+  body { font-size: 14.5px; letter-spacing: 0.01em; }
+  .idea-nombre { font-size: 14px; letter-spacing: 0.02em; }
+  .idea-desc { font-size: 13px; }
+  .sec-label { font-size: 10px; letter-spacing: 2.5px; margin-bottom: 20px; }
+  .panel-label { font-size: 10px; letter-spacing: 2.5px; }
+
+  /* Cards con sombra suave en hover */
+  .idea-card:hover, .rank-card:hover, .habito-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  /* Botones primarios más redondeados */
+  button.primary { border-radius: 8px; }
+
+  /* Nav tabs más suaves */
+  .nav-tab { border-radius: 0; padding: 14px 20px; }
+
+  /* Sidebar separación más clara */
+  .sidebar > div + div { border-top: 1px solid var(--border); }
+
+  /* Header más respirado */
+  header { padding: 20px 36px; }
+
 </style>
 </head>
 <body>
@@ -585,7 +774,7 @@
 <header>
   <div>
     <div class="logo">NEXUS<span class="slash">//</span><span class="letter">A</span></div>
-    <div class="logo-sub">Sistema de operaciones personales</div>
+    <div class="logo-sub">El corazón decide, la mente ejecuta</div>
   </div>
   <span class="env-badge" id="env-badge">...</span>
   <div id="fecha"></div>
@@ -595,35 +784,42 @@
   <div class="col-main">
 
     <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('dashboard')">Dashboard</button>
-      <button class="nav-tab" onclick="switchTab('ideas')">Operaciones</button>
-      <button class="nav-tab" onclick="switchTab('economia')">Economía</button>
-      <button class="nav-tab" onclick="switchTab('salud')">Salud</button>
-      <button class="nav-tab" onclick="switchTab('campo')">Campo</button>
+      <button class="nav-tab active" onclick="switchTab('dashboard')">Visión</button>
+      <button class="nav-tab" onclick="switchTab('ideas')">Mente</button>
+      <button class="nav-tab" onclick="switchTab('economia')">Recursos</button>
+      <button class="nav-tab" onclick="switchTab('salud')">Cuerpo</button>
+      <button class="nav-tab" onclick="switchTab('campo')">Acción</button>
     </div>
 
     <!-- Dashboard -->
     <div id="vista-dashboard">
-      <div class="dash-grid">
-        <div class="dash-cell accent-red" id="dash-operacion"></div>
-        <div class="dash-cell accent-gold" id="dash-runway"></div>
-        <div class="dash-cell accent-violet" id="dash-salud"></div>
-        <div class="dash-cell accent-silver" id="dash-campo"></div>
-        <div class="dash-cell accent-red" id="dash-racha-campo"></div>
-        <div class="dash-cell full" id="dash-streak-cell"></div>
+
+      <!-- Hero: idea en foco -->
+      <div id="dash-hero"></div>
+
+      <!-- Métricas secundarias -->
+      <div class="dash-metricas">
+        <div id="dash-runway"></div>
+        <div id="dash-salud"></div>
+        <div id="dash-campo"></div>
+        <div id="dash-racha-campo"></div>
       </div>
+
+      <!-- Presencia -->
+      <div id="dash-streak-cell"></div>
+
     </div><!-- /vista-dashboard -->
 
     <!-- Vista ideas -->
     <div id="vista-ideas" class="hidden">
 
       <div id="activa-banner">
-        <div class="sec-label">En operación</div>
-        <div id="activa-content"><div class="activa-empty">// Sin operación activa — selecciona una misión</div></div>
+        <div class="sec-label">Idea en foco</div>
+        <div id="activa-content"><div class="activa-empty">Ninguna idea activa todavía</div></div>
       </div>
 
       <div id="capture-section">
-        <div class="sec-label">Nueva misión</div>
+        <div class="sec-label">Captura una idea</div>
         <div class="capture-row">
           <input type="text" id="capture-nombre" placeholder="Nombre de la idea…" autocomplete="off" />
           <button class="primary" onclick="captureIdea()">+ Registrar</button>
@@ -650,7 +846,7 @@
       </div>
 
       <div class="eco-section">
-        <div class="sec-label">Tiempo de operación restante</div>
+        <div class="sec-label">Cuánto tiempo tienes</div>
         <div class="runway-card">
           <div class="runway-numero ok" id="runway-num">—</div>
           <div>
@@ -684,7 +880,7 @@
       </div>
 
       <div class="eco-section">
-        <div class="sec-label">Registrar baja (gasto)</div>
+        <div class="sec-label">Registrar un gasto</div>
         <div class="gasto-form">
           <input type="text" id="gasto-desc" placeholder="Descripción…" />
           <div class="input-money" style="max-width:110px"><input type="text" id="gasto-monto" placeholder="0.00" inputmode="decimal" /></div>
@@ -697,8 +893,18 @@
         <div class="gasto-list" id="gasto-list"></div>
       </div>
 
+      <div class="eco-section">
+        <div class="sec-label">Calculadora de libertad financiera</div>
+        <div id="libertad-calc"></div>
+        <div style="display:flex;gap:8px;margin-top:16px;align-items:center">
+          <span style="font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted)">// Meta mensual:</span>
+          <div class="input-money" style="max-width:160px"><input type="text" id="meta-libertad-input" placeholder="0.00" inputmode="decimal" /></div>
+          <button onclick="saveMetaLibertad()">Actualizar</button>
+        </div>
+      </div>
+
       <div class="eco-section" style="border-bottom:none">
-        <div class="sec-label">Registrar refuerzo (ingreso)</div>
+        <div class="sec-label">Registrar un ingreso</div>
         <div class="gasto-form">
           <input type="text" id="ingreso-desc" placeholder="Descripción…" />
           <div class="input-money" style="max-width:110px"><input type="text" id="ingreso-monto" placeholder="0.00" inputmode="decimal" /></div>
@@ -765,7 +971,7 @@
     <div id="vista-campo">
 
       <div class="campo-form-wrap">
-        <div class="sec-label">Registrar movimiento</div>
+        <div class="sec-label">¿Qué hiciste hoy?</div>
         <div class="campo-input-row">
           <input type="text" id="campo-input" placeholder="¿Qué hiciste hoy para conseguir empleo?" autocomplete="off" />
           <button class="primary" onclick="addMovimiento()">+ Registrar</button>
@@ -788,7 +994,7 @@
 
   <div class="sidebar">
     <div style="border-bottom:1px solid var(--border)">
-      <div class="sec-label">Diario de campo</div>
+      <div class="sec-label">Reflexión del día</div>
       <textarea id="reflexion-text" placeholder="¿Qué aprendí hoy en el campo?"></textarea>
       <div class="reflexion-save" id="reflexion-saved"></div>
     </div>
@@ -962,14 +1168,21 @@ async function renderDashboard() {
   const metasDone = metas.filter(m => m.done).length;
   const pct = metas.length ? Math.round((metasDone / metas.length) * 100) : 0;
   const dias = activa?.activadoEn ? Math.floor((Date.now() - activa.activadoEn) / 86400000) : 0;
-  $('dash-operacion').innerHTML = `
-    <div class="dash-label">En operación</div>
-    ${activa
-      ? `<div class="dash-operacion-nombre">${escHtml(activa.nombre)}</div>
-         <div class="dash-sub">Día ${dias + 1} · ${metasDone}/${metas.length} objetivos · ${pct}%</div>`
-      : `<div class="dash-sub" style="font-style:italic">// Sin operación activa</div>`}`;
+  // Hero
+  $('dash-hero').innerHTML = activa ? `
+    <div class="hero-eyebrow">Idea en foco</div>
+    <div class="hero-progress-wrap"><div class="hero-progress-bar" style="width:${pct}%"></div></div>
+    <div class="hero-nombre">${escHtml(activa.nombre)}</div>
+    <div class="hero-meta">
+      <span>${dias === 0 ? 'Comenzó hoy' : `${dias + 1} días desarrollándola`}</span>
+      <span>${metasDone} de ${metas.length} objetivos cumplidos</span>
+      <span>${pct}% completada</span>
+    </div>` : `
+    <div class="hero-eyebrow">Idea en foco</div>
+    <div class="hero-empty">Ninguna idea activa todavía.<br>Elige una y dale vida.</div>
+  `;
 
-  // Runway
+  // Métricas secundarias
   const ecoData = await api('GET', '/api/economia');
   const mes = mesActual();
   const gastosMes = ecoData.gastos.filter(g => g.fecha?.startsWith(mes));
@@ -978,41 +1191,38 @@ async function renderDashboard() {
   const mesesRunway = totalGastos ? colchon / totalGastos : null;
   const runwayColor = !mesesRunway ? 'silver' : mesesRunway <= 1 ? 'red' : mesesRunway <= 3 ? 'warning' : 'gold';
   $('dash-runway').innerHTML = `
-    <div class="dash-label">Runway</div>
+    <div class="dash-label">Tiempo libre</div>
     <div class="dash-value ${runwayColor}">${mesesRunway ? (mesesRunway < 1 ? '<1' : Math.floor(mesesRunway)) : '—'}</div>
-    <div class="dash-sub">${mesesRunway ? `meses disponibles · ${fmt(colchon)} colchón` : 'Configura tu colchón en Economía'}</div>`;
+    <div class="dash-sub">${mesesRunway ? `${Math.floor(mesesRunway) === 1 ? 'mes' : 'meses'} disponibles` : 'Sin colchón registrado'}</div>`;
 
-  // Salud hoy
+  // Cómo estás hoy
   const saludData = await api('GET', `/api/salud/${HOY}`);
   const habitosDone = Object.values(saludData.habitos).filter(v => v).length;
   const HABITOS_LOCAL = [
-    { key: 'lectura', nombre: 'Lectura', icon: '📖' },
-    { key: 'sueno',   nombre: 'Sueño',   icon: '🌙' },
-    { key: 'agua',    nombre: 'Agua',     icon: '💧' },
+    { key: 'lectura',   nombre: 'Lectura',   icon: '📖' },
+    { key: 'sueno',     nombre: 'Sueño',     icon: '🌙' },
+    { key: 'agua',      nombre: 'Agua',      icon: '💧' },
     { key: 'ejercicio', nombre: 'Ejercicio', icon: '⚡' },
-    { key: 'hobbies', nombre: 'Hobbies', icon: '🎯' },
+    { key: 'hobbies',   nombre: 'Hobbies',   icon: '🎯' },
   ];
+  const estadoTexto = ['', 'Muy difícil', 'Difícil', 'Regular', 'Bien', 'Excelente'];
   const estadoEmoji = { 0:'—', 1:'😔', 2:'😕', 3:'😐', 4:'🙂', 5:'💪' };
   $('dash-salud').innerHTML = `
-    <div class="dash-label">Salud hoy</div>
-    <div class="dash-value violet">${habitosDone}<span style="font-size:16px;color:var(--muted)">/5</span></div>
+    <div class="dash-label">Hoy</div>
+    <div class="dash-value violet">${habitosDone}<span style="font-size:20px;font-weight:300;color:rgba(144,140,160,0.3)">/5</span></div>
     <div class="dash-habitos">
-      ${HABITOS_LOCAL.map(h => `<div class="dash-habito ${saludData.habitos[h.key] ? 'done' : ''}"><div class="dash-habito-dot"></div>${h.icon} ${h.nombre}</div>`).join('')}
+      ${HABITOS_LOCAL.map(h => `<div class="dash-habito ${saludData.habitos[h.key] ? 'done' : ''}"><div class="dash-habito-dot"></div>${h.icon}</div>`).join('')}
     </div>
-    <div class="dash-sub">Estado mental: ${estadoEmoji[saludData.estadoMental] || '—'} ${saludData.estadoMental ? ['','Muy mal','Mal','Regular','Bien','Excelente'][saludData.estadoMental] : 'Sin registrar'}</div>`;
+    <div class="dash-sub">${saludData.estadoMental ? estadoTexto[saludData.estadoMental] : 'Sin registrar'}</div>`;
 
-  // Campo hoy
+  // Lo que moviste hoy
   const campoData = await api('GET', '/api/campo');
   const movHoy = campoData.filter(m => m.fecha === HOY);
   const totalPositivos = campoData.filter(m => m.resultado === 'positivo').length;
   $('dash-campo').innerHTML = `
-    <div class="dash-label">Campo hoy</div>
+    <div class="dash-label">Movimientos</div>
     <div class="dash-value silver">${movHoy.length}</div>
-    <div class="dash-sub">${totalPositivos} resultados positivos en total</div>
-    <div class="dash-campo-list">
-      ${movHoy.slice(0,3).map(m => `<div class="dash-campo-item">${escHtml(m.texto)}</div>`).join('') || '<div style="font-family:Share Tech Mono,monospace;font-size:10px;color:var(--muted)">// Sin movimientos hoy</div>'}
-      ${movHoy.length > 3 ? `<div style="font-family:Share Tech Mono,monospace;font-size:9px;color:var(--muted)">+${movHoy.length - 3} más</div>` : ''}
-    </div>`;
+    <div class="dash-sub">${totalPositivos} positivos en total</div>`;
 
   // Racha de campo
   const fechasConMovimiento = [...new Set(campoData.map(m => m.fecha))];
@@ -1032,14 +1242,17 @@ async function renderDashboard() {
     rachaDays.push(`<div class="racha-campo-day ${activo ? 'on' : ''} ${esHoy ? 'hoy' : ''}">${d.getDate()}</div>`);
   }
   const rachaColor = rachaCampo === 0 ? 'red' : rachaCampo < 3 ? 'silver' : 'violet';
-  const rachaMsg = rachaCampo === 0 ? 'Sin actividad hoy' : rachaCampo === 1 ? 'Buen comienzo — no lo rompas' : `${rachaCampo} días consecutivos en campo`;
+  const rachaMsg = rachaCampo === 0
+    ? 'Hoy no hiciste nada todavía — aún estás a tiempo'
+    : rachaCampo === 1
+    ? 'Empezaste — ahora no lo cortes'
+    : `${rachaCampo} días sin parar`;
   $('dash-racha-campo').innerHTML = `
-    <div class="dash-label">Racha de campo</div>
-    <div class="dash-value ${rachaColor}">${rachaCampo}<span style="font-size:16px;color:var(--muted)"> días</span></div>
-    <div class="racha-campo-mini">${rachaDays.join('')}</div>
-    <div class="dash-sub" style="margin-top:6px">${rachaMsg}</div>`;
+    <div class="dash-label">Constancia</div>
+    <div class="dash-value ${rachaColor}">${rachaCampo}<span style="font-size:20px;font-weight:300;color:rgba(144,140,160,0.3)"> días</span></div>
+    <div class="dash-sub">${rachaMsg}</div>`;
 
-  // Streak
+  // Streak general
   const streakData = await api('GET', '/api/streak');
   const streakDays = [];
   for (let i = 13; i >= 0; i--) {
@@ -1058,9 +1271,9 @@ async function renderDashboard() {
     return count;
   })();
   $('dash-streak-cell').innerHTML = `
-    <div class="dash-label">Racha de actividad</div>
-    <div style="display:flex;align-items:center;gap:20px">
-      <div class="dash-value red">${rachaActual}<span style="font-size:14px;color:var(--muted)"> días</span></div>
+    <div class="dash-label" style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(144,140,160,0.4);margin-bottom:4px">Presencia — últimos 14 días</div>
+    <div style="display:flex;align-items:center;gap:28px">
+      <div style="font-family:'Cinzel',serif;font-size:32px;font-weight:400;color:#b05858;line-height:1">${rachaActual}<span style="font-size:14px;font-weight:300;color:rgba(144,140,160,0.3)"> días</span></div>
       <div class="dash-streak">${streakDays.join('')}</div>
     </div>`;
 }
@@ -1083,7 +1296,7 @@ function renderActiva() {
   const activa = ideas.find(i => i.estado === 'activa');
   const el = $('activa-content');
   if (!activa) {
-    el.innerHTML = '<div class="activa-empty">// Sin operación activa — selecciona una misión</div>';
+    el.innerHTML = '<div class="activa-empty">Ninguna idea activa todavía</div>';
     return;
   }
   const metas = activa.metas || [];
@@ -1441,6 +1654,10 @@ function renderEconomia() {
 
   setTimeout(() => renderBalanceChart(eco.gastos, eco.ingresos), 50);
 
+  // Libertad financiera
+  $('meta-libertad-input').value = eco.metaLibertad || '';
+  renderLibertad(eco.metaLibertad || 0, totalIngresos, totalGastos);
+
   const colchon = Number(eco.colchon) || 0;
   $('colchon-input').value = colchon || '';
   const numEl = $('runway-num');
@@ -1593,6 +1810,74 @@ function renderBalanceChart(gastos, ingresos) {
     <div class="chart-leyenda-item"><div class="chart-leyenda-dot" style="background:rgba(139,92,246,0.7)"></div>Ingresos</div>
     <div class="chart-leyenda-item"><div class="chart-leyenda-dot" style="background:rgba(240,240,248,0.7);height:2px"></div>Balance neto</div>
   `;
+}
+
+function renderLibertad(meta, totalIngresos, totalGastos) {
+  if (!meta) {
+    $('libertad-calc').innerHTML = '<div class="empty">// Define tu meta mensual abajo para activar la calculadora</div>';
+    return;
+  }
+
+  const brecha = meta - totalIngresos;
+  const pct = Math.min(Math.round((totalIngresos / meta) * 100), 100);
+  const gastosVsMeta = totalGastos / meta * 100;
+
+  // Proyección: si sigo a este ritmo cuánto tarda
+  const mesesParaMeta = totalIngresos > 0
+    ? Math.ceil(meta / totalIngresos)
+    : null;
+
+  // Fuentes de ingreso sugeridas
+  const montos = [5000, 8000, 10000, 15000, 20000];
+  const fuentes = montos.map(m => ({ monto: m, cantidad: Math.ceil(meta / m) }));
+
+  $('libertad-calc').innerHTML = `
+    <div class="libertad-grid">
+      <div class="libertad-card">
+        <div class="libertad-valor ${brecha <= 0 ? 'ok' : 'neg'}">${fmt(totalIngresos)}</div>
+        <div class="libertad-etiqueta">Ingresos este mes</div>
+      </div>
+      <div class="libertad-card">
+        <div class="libertad-valor ${brecha <= 0 ? 'ok' : 'neg'}">${brecha <= 0 ? '✓ ' + fmt(Math.abs(brecha)) + ' sobre meta' : fmt(brecha)}</div>
+        <div class="libertad-etiqueta">${brecha <= 0 ? 'Superaste la meta' : 'Brecha restante'}</div>
+      </div>
+    </div>
+
+    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);margin-bottom:6px">
+      PROGRESO HACIA LIBERTAD — ${fmt(meta)}/mes
+    </div>
+    <div class="libertad-barra-wrap">
+      <div class="libertad-barra" style="width:${pct}%"></div>
+    </div>
+    <div class="libertad-barra-txt">
+      <span>${pct}% completado</span>
+      <span>${fmt(meta)}</span>
+    </div>
+
+    ${mesesParaMeta ? `
+    <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-top:12px;letter-spacing:1px">
+      // A este ritmo necesitas <span style="color:var(--violet2)">${mesesParaMeta} fuentes de ingreso</span> similares para alcanzar la meta
+    </div>` : ''}
+
+    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);margin-top:16px;margin-bottom:8px">
+      COMBINACIONES POSIBLES PA' LLEGAR A ${fmt(meta)}
+    </div>
+    <div class="fuentes-grid">
+      ${fuentes.map(f => `
+        <div class="fuente-chip ${totalIngresos >= f.monto ? 'activa' : ''}">
+          ${f.cantidad}x ${fmt(f.monto)}
+        </div>`).join('')}
+    </div>
+  `;
+}
+
+async function saveMetaLibertad() {
+  const val = parseFloat($('meta-libertad-input').value.replace(/[$,\s]/g, ''));
+  if (isNaN(val) || val <= 0) { toast('Ingresa una meta válida', 'danger'); return; }
+  eco.metaLibertad = val;
+  await api('PUT', '/api/economia/meta-libertad', { meta: val });
+  renderEconomia();
+  toast('Meta de libertad actualizada');
 }
 
 async function saveColchon() {

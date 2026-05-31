@@ -80,6 +80,8 @@ db.exec(`
   INSERT OR IGNORE INTO economia (id, colchon) VALUES (1, 0);
 `);
 
+try { db.exec('ALTER TABLE economia ADD COLUMN meta_libertad REAL DEFAULT 0'); } catch(e) {}
+
 // ── IDEAS ─────────────────────────────────────────────────
 const ideas = {
   getAll: () => {
@@ -152,14 +154,18 @@ const metas = {
 // ── ECONOMÍA ──────────────────────────────────────────────
 const economia = {
   get: () => {
-    const config = db.prepare('SELECT colchon FROM economia WHERE id = 1').get();
+    const config = db.prepare('SELECT colchon, meta_libertad FROM economia WHERE id = 1').get();
     const gastosList = db.prepare('SELECT * FROM gastos ORDER BY id DESC').all();
     const ingresosList = db.prepare('SELECT * FROM ingresos ORDER BY id DESC').all();
-    return { colchon: config?.colchon || 0, gastos: gastosList, ingresos: ingresosList };
+    return { colchon: config?.colchon || 0, metaLibertad: config?.meta_libertad || 0, gastos: gastosList, ingresos: ingresosList };
   },
 
   setColchon: (colchon) => {
     db.prepare('UPDATE economia SET colchon = ? WHERE id = 1').run(colchon);
+  },
+
+  setMetaLibertad: (meta) => {
+    db.prepare('UPDATE economia SET meta_libertad = ? WHERE id = 1').run(meta);
   },
 
   addGasto: (data) => {
